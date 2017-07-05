@@ -5,9 +5,11 @@
 {% block title %}Совместные закупки{% endblock %}
 {% block app %}
     <div class="container-fluid well" id="sls">
-        <select v-model="source">
-            <option v-for="srcs in sources">${ srcs.source_name }</option>
-        </select>
-        <span>Selected: ${ source }</span>
+        <div class="col-xs-2">
+            <select v-model="source" class="form-control">
+                <option v-for="srcs in sources" :value="srcs.source_id">${ srcs.source_name }</option>
+            </select>
+            <span>Selected: ${ source }</span>
+        </div>
     </div>
 {% endblock app %}

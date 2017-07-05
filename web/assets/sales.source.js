@@ -13,19 +13,15 @@ window.onload = function(){
         methods: {
             getSource: function () {
                 s = this;
-                console.log(s.api_url + '/api/v1/rest/source/');
                 $.get(s.api_url + '/api/v1/rest/source/').then(function (response) {
-                    console.log(s.api_url + '/api/v1/rest/source/');
-
                     s.sources = response;
-                    console.log(s.sources);
                 }).catch(function(){
                     console.log('Ошибка запроса данных');
                 });
 
             }
         },
-        started: function(){
+        created: function(){
             this.getSource();
         }
     })

@@ -30,10 +30,8 @@ class SourceControllerProvider implements ControllerProviderInterface {
 
             $sql = 'call source_get()';
             $post = $app['db']->fetchAll($sql);
-
-
-
-            return new Response(json_encode($post), 200);
+            header('Content-Type: application/json');
+            return new Response(json_encode($post), 200, ['Content-Type' => 'application/json']);
         });
 
             //return $app['util']->stmtToArray($app, $stmt, 200, 400);
