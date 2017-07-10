@@ -11,5 +11,11 @@
             </select>
             <span>Selected: ${ source }</span>
         </div>
+        <div class="col-xs-2">
+            <select v-model="custom" class="form-control">
+                <option v-for="cstm in customs" :value="cstm.custom_id">${ cstm.custom_name }</option>
+            </select>
+            <span>Selected: ${ custom }</span>
+        </div>
     </div>
 {% endblock app %}

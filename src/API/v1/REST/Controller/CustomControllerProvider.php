@@ -1,22 +1,24 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: deevgen
- * Date: 03.07.2017
- * Time: 22:08
+ * User: 111
+ * Date: 10.07.2017
+ * Time: 21:32
  */
 
 namespace API\v1\REST\Controller;
 
 
-use Silex\Application;
 use Silex\Api\ControllerProviderInterface;
+use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 
-class SourceControllerProvider implements ControllerProviderInterface {
-    public function connect (Application $app){
+class CustomControllerProvider implements ControllerProviderInterface
+{
+    public function connect(Application $app)
+    {
         $ctrl = $app['controllers_factory'];
         // Разбор JSON
         $ctrl->before(function (Request $request) use ($app) {
@@ -26,23 +28,15 @@ class SourceControllerProvider implements ControllerProviderInterface {
             }
         });
 
-        $ctrl->get('/', function () use ($app) {
-
-            $sql = 'call source_get()';
-            $post = $app['db']->fetchAll($sql);
-            header('Content-Type: application/json');
-            return new Response(json_encode($post), 200, ['Content-Type' => 'application/json']);
-        });
-
-        $ctrl->get('/{source_id}', function ($source_id) use ($app) {
-            $param = array((int)$source_id, false);
-            $sql = 'call source_get_custom(?, ?)';
+        $ctrl->get('/{custom_id}', function ($custom_id) use ($app) {
+            $param = array((int)$custom_id, false);
+            $sql = 'call custom_get_item(?, ?)';
             $post = $app['db']->fetchAll($sql, $param);
             header('Content-Type: application/json');
             return new Response(json_encode($post), 200, ['Content-Type' => 'application/json']);
         });
 
-            //return $app['util']->stmtToArray($app, $stmt, 200, 400);
+        //return $app['util']->stmtToArray($app, $stmt, 200, 400);
 
         return $ctrl;
     }
