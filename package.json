@@ -1,0 +1,21 @@
+{
+  "name": "sales",
+  "version": "1.0.0",
+  "description": "Aleksa_sales",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/deevgen96/sales.git"
+  },
+  "author": "Eugene Deyev",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/deevgen96/sales/issues"
+  },
+  "homepage": "https://github.com/deevgen96/sales#readme"
+}
