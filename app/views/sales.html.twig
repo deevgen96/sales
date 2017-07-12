@@ -4,18 +4,179 @@
 {% endblock js %}
 {% block title %}Совместные закупки{% endblock %}
 {% block app %}
-    <div class="container-fluid well" id="sls">
-        <div class="col-xs-2">
-            <select v-model="source" class="form-control">
-                <option v-for="srcs in sources" :value="srcs.source_id">${ srcs.source_name }</option>
-            </select>
-            <span>Selected: ${ source }</span>
+    <div id="sls">
+        <div class="container-fluid well">
+            <div class="col-xs-12 col-md-12 col-lg-12 col-sm-12">
+                <div class="form-group col-xs-2">
+                    <label for="source_site">Сайт:</label>
+                    <select v-model="source" class="form-control" id="source_site">
+                        <option v-for="srcs in sources" :value="srcs.source_id">${ srcs.source_name }</option>
+                    </select>
+                    <span>Выбран: ${ source }</span>
+                </div>
+                <div class="form-group col-xs-2">
+                    <label for="source_custom">Номер заказа:</label>
+                    <select v-model="custom" class="form-control" id="source_custom">
+                        <option v-for="cstm in customs" :value="cstm.custom_id">${ cstm.custom_name }</option>
+                    </select>
+                    <span>Выбран: ${ custom }</span>
+                </div>
+                <div class="form-group col-xs-2">
+                    <label for="choise_client">Клиент:</label>
+                    <input id="choise_client" class="form-control" placeholder="Клиент" @input="clearSearchClient()"
+                           v-model="searchClient">
+                    <div v-if="(searchClient && !client)">
+                        <div class="col-xs-12 list-group">
+                            <a href="#" @click="selectClient(fcl.client_id, fcl.client_name)" class="list-group-item"
+                               v-for="fcl in filteredClients">${ fcl.client_name }</a>
+                        </div>
+                    </div>
+                    <span>Выбран: ${ client }</span>
+                </div>
+            </div>
         </div>
-        <div class="col-xs-2">
-            <select v-model="custom" class="form-control">
-                <option v-for="cstm in customs" :value="cstm.custom_id">${ cstm.custom_name }</option>
-            </select>
-            <span>Selected: ${ custom }</span>
+        <div class="container-fluid">
+            <div class="col-xs-12 col-md-12 col-lg-12 col-sm-12">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#customs" aria-controls="customs" role="tab"
+                                                              data-toggle="tab">Заказы</a></li>
+                    <li role="presentation"><a href="#payments" aria-controls="payments" role="tab" data-toggle="tab">Оплаты</a>
+                    </li>
+                    <li role="presentation"><a href="#clients" aria-controls="clients" role="tab" data-toggle="tab">Клиенты</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="customs">
+                        <table class="table">
+                            <thead>
+                            <td>#</td>
+                            <td>Клиент</td>
+                            <td>Название товара</td>
+                            <td>Артикул</td>
+                            <td>Ссылка</td>
+                            <td>Размер</td>
+                            <td>Количество</td>
+                            <td>На кого</td>
+                            <td>Начальная цена</td>
+                            <td>Конечная цена</td>
+                            <td>Стоимость</td>
+                            </thead>
+                            <tbody>
+                            <tr v-for="itm in items" v-if="(itm.client_id == client) || (!client)">
+                                <td>${itm.log_id}</td>
+                                <td>${itm.client_name}</td>
+                                <td>${itm.item_name}</td>
+                                <td>${itm.article}</td>
+                                <td><a :href="itm.item_link" target="_blank">${itm.item_link}</a></td>
+                                <td>${itm.item_size}</td>
+                                <td>${itm.item_count}</td>
+                                <td>${itm.sex}</td>
+                                <td>${itm.source_price}</td>
+                                <td>${itm.sale_price}</td>
+                                <td>${itm.total}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="payments"></div>
+                    <div role="tabpanel" class="tab-pane" id="clients">
+                        <button class="btn btn-default pull-right" type="button" data-toggle="modal"
+                                data-target="#editClient" @click="setEditClientDefault"><i class="fa fa-plus"
+                                                             aria-hidden="true"></i>&nbsp;Добавить
+                        </button>
+                        <table class="table">
+                            <thead>
+                            <td>#</td>
+                            <td>ФИО</td>
+                            <td>О профиль</td>
+                            <td>Район</td>
+                            <td>Приветствие</td>
+                            <td>Обращение</td>
+                            <td></td>
+                            </thead>
+                            <tbody>
+                            <tr v-for="(clt,index) in clients" v-if="(clt.client_id == client) || (!client)">
+                                <td>${clt.client_id}</td>
+                                <td>${clt.client_name}</td>
+                                <td><a :href="clt.profile_link" target="_blank">${clt.profile_link}</a></td>
+                                <td>${clt.region}</td>
+                                <td>${clt.client_honor}</td>
+                                <td>${clt.client_greeting}</td>
+                                <td>
+                                    <button class="btn btn-default btn-sm" type="button" data-toggle="modal"
+                                            data-target="#editClient" @click="setEditClient(index)"><i
+                                                class="fa fa-pencil"
+                                                aria-hidden="true"></i></button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="editClient" tabindex="-1" role="dialog" aria-labelledby="editClientLabes">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Изменение клиента: ${editClient.client_name}</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label for="inputId" class="col-sm-2 control-label">#</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="inputId"
+                                           v-model="editClient.client_id" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputFIO" class="col-sm-2 control-label">ФИО</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="inputFIO" placeholder="ФИО"
+                                           v-model="editClient.client_name">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputProfileLink" class="col-sm-2 control-label">Профиль</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="inputProfileLink"
+                                           placeholder="ОК профиль" v-model="editClient.profile_link">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputRegion" class="col-sm-2 control-label">Район</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="inputRegion" placeholder="Район"
+                                           v-model="editClient.region">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputHonor" class="col-sm-2 control-label">Обращение</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="inputHonor" placeholder="Обращение"
+                                           v-model="editClient.client_honor">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputGreeting" class="col-sm-2 control-label">Приветствие</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="inputGreeting" placeholder="Приветствие"
+                                           v-model="editClient.client_greeting">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" @click="setClient">
+                            Сохранить
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock app %}

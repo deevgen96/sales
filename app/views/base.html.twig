@@ -2,12 +2,13 @@
 <html>
 <head>
     <title>{% block title %}{% endblock %}</title>
-    <script src="/js/jquery/jquery-3.2.1.min.js"></script>
-    <script src="/js/vue/vue.js"></script>
-    <script src="/js/vue/vue-resource.min.js"></script>
-    <script src="/css/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="/node_modules/vue/dist/vue.js"></script>
+    <script src="/node_modules/vue-resource/dist/vue-resource.min.js"></script>
+    <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     {% block js %}{% endblock js %}
-    <link rel="stylesheet" href="/css/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/node_modules/vue2-autocomplete-js/dist/style/vue2-autocomplete.css">
     <link rel="stylesheet" href="/css/fontawesome/css/font-awesome.min.css">
     {% block css %}{% endblock css %}
 </head>
