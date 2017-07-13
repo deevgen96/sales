@@ -9,21 +9,29 @@ window.onload = function () {
         data: {
             sources: [],
             customs: [],
+            custom_items: [],
             items: [],
             clients: [],
-            source: null,
-            custom: null,
-            client: null,
+            source: {'source_name': ''},
+            custom: {'custom_name': ''},
+            client: {'client_id': 0},
             searchClient: null,
-            editClient: {},
+            editClient: {'source_price': 0},
+            editItem: {},
+            sex: [
+                {'name': 'Женщина'},
+                {'name': 'Мужчина'},
+                {'name': 'Девочка'},
+                {'name': 'Мальчик'}
+            ],
             api_url: 'http://localhost/index.php'
         },
         watch: {
             source: function () {
-                this.getCustom(this.source);
+                this.getCustom(this.source.source_id);
             },
             custom: function () {
-                this.getItem(this.custom);
+                this.getCustomItem(this.custom.custom_id);
             },
         },
         computed: {
@@ -46,7 +54,10 @@ window.onload = function () {
 
                 // Возвращает массив с отфильтрованными данными.
                 return client_array;
-            }
+            },
+            salePrice: function () {
+                return this.editItem.source_price * 1.2;
+            },
         },
         methods: {
             getSource: function () {
@@ -65,12 +76,20 @@ window.onload = function () {
                 }).catch(function () {
                     console.log('Ошибка запроса данных');
                 });
-
             },
-            getItem: function (custom_id) {
+            getItem: function (source_id) {
+                s = this;
+                $.get(s.api_url + '/api/v1/rest/item/').then(function (response) {
+                    s.items = response;
+                }).catch(function () {
+                    console.log('Ошибка запроса данных');
+                });
+            },
+
+            getCustomItem: function (custom_id) {
                 s = this;
                 $.get(s.api_url + '/api/v1/rest/custom/' + custom_id).then(function (response) {
-                    s.items = response;
+                    s.custom_items = response;
                 }).catch(function () {
                     console.log('Ошибка запроса данных');
                 });
@@ -93,12 +112,35 @@ window.onload = function () {
                     console.log('Ошибка запроса данных');
                 });
             },
-            selectClient: function (id, name) {
-                this.client = id;
-                this.searchClient = name;
+            setItemOnce: function () {
+                s = this;
+                $.post(s.api_url + '/api/v1/rest/custom/item', s.editItem).then(function (response) {
+                    s.custom_items = response;
+                }).catch(function () {
+                    console.log('Ошибка запроса данных');
+                });
+            },
+            setItemMulti: function () {
+                this.setItemOnce();
+                this.setEditItemDefault();
+            },
+            selectClient: function (client) {
+                this.client = client;
+                this.searchClient = client.client_name;
+            },
+            deleteItem: function (index) {
+                s = this;
+                log_id = this.custom_items[index].log_id;
+                $.delete(s.api_url + '/api/v1/rest/custom/item/' + log_id).then(function (response) {
+                    s.custom_items = response;
+
+                    console.log(s.custom_items);
+                }).catch(function () {
+                    console.log('Ошибка запроса данных');
+                });
             },
             clearSearchClient: function () {
-                this.client = null;
+                this.client = {'client_id': 0};
             },
             setEditClient: function (index) {
                 this.editClient = this.clients[index];
@@ -112,12 +154,33 @@ window.onload = function () {
                     client_honor: '',
                     client_greeting: 'Здравствуйте'
                 };
+            },
+            setEditItem: function (index) {
+                this.editItem = this.custom_items[index];
+                console.log(this.editItem);
+            },
+            setEditItemDefault: function () {
+                this.editItem = {
+                    log_id: 0,
+                    client_id: this.client.client_id,
+                    client_name: this.client.client_name,
+                    custom_id: this.custom.custom_id,
+                    custom_name: this.custom.custom_name,
+                    item_id: 0,
+                    article: '',
+                    item_link: '',
+                    item_size: '',
+                    item_count: 1,
+                    sex: '',
+                    source_price: 0.00,
+                    sale_price: 0.00,
+                }
             }
         },
-
         created: function () {
             this.getSource();
             this.getClient();
+            this.getItem();
         }
     })
 

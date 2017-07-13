@@ -37,5 +37,6 @@ $app->register(new Silex\Provider\SessionServiceProvider());
 $app->mount('api/v1/rest/source',new API\v1\REST\Controller\SourceControllerProvider());
 $app->mount('api/v1/rest/custom',new API\v1\REST\Controller\CustomControllerProvider());
 $app->mount('api/v1/rest/client',new API\v1\REST\Controller\ClientControllerProvider());
+$app->mount('api/v1/rest/item',new API\v1\REST\Controller\ItemControllerProvider());
 $app->mount('sales',new sales\Controller\SalesControllerProvider());
 $app->run();

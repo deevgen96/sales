@@ -8,16 +8,16 @@
         <div class="container-fluid well">
             <div class="col-xs-12 col-md-12 col-lg-12 col-sm-12">
                 <div class="form-group col-xs-2">
-                    <label for="source_site">Сайт:</label>
+                    <label for="source_site">Источник:</label>
                     <select v-model="source" class="form-control" id="source_site">
-                        <option v-for="srcs in sources" :value="srcs.source_id">${ srcs.source_name }</option>
+                        <option v-for="srcs in sources" :value="srcs">${ srcs.source_name }</option>
                     </select>
                     <span>Выбран: ${ source }</span>
                 </div>
                 <div class="form-group col-xs-2">
                     <label for="source_custom">Номер заказа:</label>
                     <select v-model="custom" class="form-control" id="source_custom">
-                        <option v-for="cstm in customs" :value="cstm.custom_id">${ cstm.custom_name }</option>
+                        <option v-for="cstm in customs" :value="cstm">${ cstm.custom_name }</option>
                     </select>
                     <span>Выбран: ${ custom }</span>
                 </div>
@@ -25,9 +25,9 @@
                     <label for="choise_client">Клиент:</label>
                     <input id="choise_client" class="form-control" placeholder="Клиент" @input="clearSearchClient()"
                            v-model="searchClient">
-                    <div v-if="(searchClient && !client)">
+                    <div v-if="(searchClient && !client.client_name)">
                         <div class="col-xs-12 list-group">
-                            <a href="#" @click="selectClient(fcl.client_id, fcl.client_name)" class="list-group-item"
+                            <a href="#" @click="selectClient(fcl)" class="list-group-item"
                                v-for="fcl in filteredClients">${ fcl.client_name }</a>
                         </div>
                     </div>
@@ -47,6 +47,11 @@
                 </ul>
                 <div class="tab-content">
                     <div role="tabpanel" class="tab-pane active" id="customs">
+                        <button class="btn btn-default pull-right" type="button" data-toggle="modal"
+                                data-target="#editItem" @click="setEditItemDefault"><i class="fa fa-plus"
+                                                                                       aria-hidden="true"></i>&nbsp;Добавить
+                            позицию
+                        </button>
                         <table class="table">
                             <thead>
                             <td>#</td>
@@ -60,9 +65,12 @@
                             <td>Начальная цена</td>
                             <td>Конечная цена</td>
                             <td>Стоимость</td>
+                            <td></td>
+                            <td></td>
                             </thead>
                             <tbody>
-                            <tr v-for="itm in items" v-if="(itm.client_id == client) || (!client)">
+                            <tr v-for="(itm, index) in custom_items"
+                                v-if="((client.client_id) && itm.client_id == client.client_id) || (!client.client_id)">
                                 <td>${itm.log_id}</td>
                                 <td>${itm.client_name}</td>
                                 <td>${itm.item_name}</td>
@@ -74,6 +82,15 @@
                                 <td>${itm.source_price}</td>
                                 <td>${itm.sale_price}</td>
                                 <td>${itm.total}</td>
+                                <td>
+                                    <button class="btn btn-default btn-sm" type="button" data-toggle="modal"
+                                            data-target="#editItem" @click="setEditItem(index)"><i
+                                                class="fa fa-pencil" aria-hidden="true"></i></button>
+                                </td>
+                                <td>
+                                    <button class="btn btn-default btn-sm" type="button" @click="deleteItem(index)"><i
+                                                class="fa fa-trash" aria-hidden="true"></i></button>
+                                </td>
                             </tr>
                             </tbody>
                         </table>
@@ -82,7 +99,8 @@
                     <div role="tabpanel" class="tab-pane" id="clients">
                         <button class="btn btn-default pull-right" type="button" data-toggle="modal"
                                 data-target="#editClient" @click="setEditClientDefault"><i class="fa fa-plus"
-                                                             aria-hidden="true"></i>&nbsp;Добавить
+                                                                                           aria-hidden="true"></i>&nbsp;Добавить
+                            клиента
                         </button>
                         <table class="table">
                             <thead>
@@ -173,6 +191,100 @@
                         <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
                         <button type="button" class="btn btn-primary" data-dismiss="modal" @click="setClient">
                             Сохранить
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="editItem" tabindex="-1" role="dialog" aria-labelledby="editItemLabes">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel"> ${source.source_name}, ${custom.custom_name} для
+                            ${editItem.client_name}</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label for="inputId" class="col-sm-2 control-label">#</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control input-sm" id="inputId"
+                                           v-model="editItem.log_id" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputItem" class="col-sm-2 control-label">Тип</label>
+                                <div class="col-sm-10">
+                                    <select v-model="editItem.item_id" class="form-control input-sm" id="inputSex">
+                                        <option v-for="itm in items" :value="itm.item_id">${ itm.item_name }</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputArticle" class="col-sm-2 control-label">Артикул</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control input-sm" id="inputArticle"
+                                           placeholder="Артикул" v-model="editItem.article">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputLink" class="col-sm-2 control-label">Ссылка</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control input-sm" id="inputLink" placeholder="Ссылка"
+                                           v-model="editItem.item_link">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputSize" class="col-sm-2 control-label">Размер</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control input-sm" id="inputSize" placeholder="Размер"
+                                           v-model="editItem.item_size">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputCount" class="col-sm-2 control-label">Количество</label>
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control input-sm" min="1" id="inputCount"
+                                           placeholder="Количество"
+                                           v-model="editItem.item_count">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputSex" class="col-sm-2 control-label">Пол</label>
+                                <div class="col-sm-10">
+                                    <select v-model="editItem.sex" class="form-control input-sm" id="inputSex">
+                                        <option v-for="sx in sex" :value="sx.name">${ sx.name }</option>
+                                    </select>
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputSourcePrice" class="col-sm-2 control-label">Начальная цена</label>
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control input-sm" id="inputSourcePrice"
+                                           placeholder="Начальная цена"
+                                           v-model="editItem.source_price">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputSalePrice" class="col-sm-2 control-label">Цена продажи</label>
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control input-sm" id="inputSalePrice"
+                                           placeholder="Цена продажи"
+                                           v-model="editItem.sale_price">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Выйти</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" @click="setItemOnce()">
+                            Сохранить и выйти
+                        </button>
+                        <button type="button" class="btn btn-primary" @click="setItemMulti(); return false;">
+                            Сохранить и продолжить
                         </button>
                     </div>
                 </div>
