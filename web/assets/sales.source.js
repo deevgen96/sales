@@ -62,8 +62,8 @@ window.onload = function () {
         methods: {
             getSource: function () {
                 s = this;
-                $.get(s.api_url + '/api/v1/rest/source/').then(function (response) {
-                    s.sources = response;
+                this.$http.get(s.api_url + '/api/v1/rest/source/').then(function (response) {
+                    s.sources = response.data;
                 }).catch(function () {
                     console.log('Ошибка запроса данных');
                 });
@@ -71,16 +71,16 @@ window.onload = function () {
             },
             getCustom: function (source_id) {
                 s = this;
-                $.get(s.api_url + '/api/v1/rest/source/' + source_id).then(function (response) {
-                    s.customs = response;
+                this.$http.get(s.api_url + '/api/v1/rest/source/' + source_id).then(function (response) {
+                    s.customs = response.data;
                 }).catch(function () {
                     console.log('Ошибка запроса данных');
                 });
             },
             getItem: function (source_id) {
                 s = this;
-                $.get(s.api_url + '/api/v1/rest/item/').then(function (response) {
-                    s.items = response;
+                this.$http.get(s.api_url + '/api/v1/rest/item/').then(function (response) {
+                    s.items = response.data;
                 }).catch(function () {
                     console.log('Ошибка запроса данных');
                 });
@@ -88,8 +88,8 @@ window.onload = function () {
 
             getCustomItem: function (custom_id) {
                 s = this;
-                $.get(s.api_url + '/api/v1/rest/custom/' + custom_id).then(function (response) {
-                    s.custom_items = response;
+                this.$http.get(s.api_url + '/api/v1/rest/custom/' + custom_id).then(function (response) {
+                    s.custom_items = response.data;
                 }).catch(function () {
                     console.log('Ошибка запроса данных');
                 });
@@ -97,8 +97,8 @@ window.onload = function () {
             },
             getClient: function () {
                 s = this;
-                $.get(s.api_url + '/api/v1/rest/client/').then(function (response) {
-                    s.clients = response;
+                this.$http.get(s.api_url + '/api/v1/rest/client/').then(function (response) {
+                    s.clients = response.data;
                 }).catch(function () {
                     console.log('Ошибка запроса данных');
                 });
@@ -106,8 +106,8 @@ window.onload = function () {
             },
             setClient: function () {
                 s = this;
-                $.post(s.api_url + '/api/v1/rest/client/', s.editClient).then(function (response) {
-                    s.clients = response;
+                this.$http.post(s.api_url + '/api/v1/rest/client/', s.editClient).then(function (response) {
+                    s.clients = response.data;
                 }).catch(function () {
                     console.log('Ошибка запроса данных');
                 });
@@ -115,7 +115,18 @@ window.onload = function () {
             setItemOnce: function () {
                 s = this;
                 $.post(s.api_url + '/api/v1/rest/custom/item', s.editItem).then(function (response) {
-                    s.custom_items = response;
+                    s.custom_items = response.data;
+                }).catch(function () {
+                    console.log('Ошибка запроса данных');
+                });
+            },
+            deleteItem: function (index) {
+                s = this;
+                log_id = this.custom_items[index].log_id;
+                this.$http.delete(s.api_url + '/api/v1/rest/custom/item/' + log_id).then(function (response) {
+                    s.custom_items = response.data;
+
+                    console.log(s.custom_items);
                 }).catch(function () {
                     console.log('Ошибка запроса данных');
                 });
@@ -127,17 +138,6 @@ window.onload = function () {
             selectClient: function (client) {
                 this.client = client;
                 this.searchClient = client.client_name;
-            },
-            deleteItem: function (index) {
-                s = this;
-                log_id = this.custom_items[index].log_id;
-                $.delete(s.api_url + '/api/v1/rest/custom/item/' + log_id).then(function (response) {
-                    s.custom_items = response;
-
-                    console.log(s.custom_items);
-                }).catch(function () {
-                    console.log('Ошибка запроса данных');
-                });
             },
             clearSearchClient: function () {
                 this.client = {'client_id': 0};
