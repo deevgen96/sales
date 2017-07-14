@@ -8,6 +8,7 @@ window.onload = function () {
         delimiters: ['${', '}'],
         data: {
             sources: [],
+            source_customs: [],
             customs: [],
             custom_items: [],
             items: [],
@@ -28,7 +29,7 @@ window.onload = function () {
         },
         watch: {
             source: function () {
-                this.getCustom(this.source.source_id);
+                this.getSourceCustom(this.source.source_id);
             },
             custom: function () {
                 this.getCustomItem(this.custom.custom_id);
@@ -69,9 +70,17 @@ window.onload = function () {
                 });
 
             },
+            getSourceCustom: function (source_id) {
+                s = this;
+                this.$http.get(s.api_url + '/api/v1/rest/source/' + source_id + '/custom/').then(function (response) {
+                    s.source_customs = response.data;
+                }).catch(function () {
+                    console.log('Ошибка запроса данных');
+                });
+            },
             getCustom: function (source_id) {
                 s = this;
-                this.$http.get(s.api_url + '/api/v1/rest/source/' + source_id).then(function (response) {
+                this.$http.get(s.api_url + '/api/v1/rest/custom/').then(function (response) {
                     s.customs = response.data;
                 }).catch(function () {
                     console.log('Ошибка запроса данных');

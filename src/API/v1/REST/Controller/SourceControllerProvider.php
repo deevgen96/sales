@@ -34,7 +34,7 @@ class SourceControllerProvider implements ControllerProviderInterface {
             return new Response(json_encode($post), 200, ['Content-Type' => 'application/json']);
         });
 
-        $ctrl->get('/{source_id}', function ($source_id) use ($app) {
+        $ctrl->get('/{source_id}/custom/', function ($source_id) use ($app) {
             $param = array((int)$source_id, false);
             $sql = 'call source_get_custom(?, ?)';
             $post = $app['db']->fetchAll($sql, $param);

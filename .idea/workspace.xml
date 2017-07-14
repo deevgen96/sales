@@ -2,6 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f0b8b703-1441-45f7-9230-8ed8c59ca59a" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/sales.html.twig" afterPath="$PROJECT_DIR$/app/views/sales.html.twig" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.php" afterPath="$PROJECT_DIR$/index.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/API/v1/REST/Controller/CustomControllerProvider.php" afterPath="$PROJECT_DIR$/src/API/v1/REST/Controller/CustomControllerProvider.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/API/v1/REST/Controller/SourceControllerProvider.php" afterPath="$PROJECT_DIR$/src/API/v1/REST/Controller/SourceControllerProvider.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/assets/sales.source.js" afterPath="$PROJECT_DIR$/web/assets/sales.source.js" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -21,29 +25,17 @@
         <entry file="file://$PROJECT_DIR$/index.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="34">
-              <caret line="2" column="23" lean-forward="false" selection-start-line="2" selection-start-column="23" selection-end-line="2" selection-end-column="23" />
+              <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="app.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/app.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="493">
-              <caret line="34" column="60" lean-forward="false" selection-start-line="34" selection-start-column="60" selection-end-line="34" selection-end-column="60" />
-              <folding>
-                <element signature="e#6#85#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="sales.source.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="sales.source.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/assets/sales.source.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="614">
-              <caret line="140" column="14" lean-forward="false" selection-start-line="140" selection-start-column="14" selection-end-line="140" selection-end-column="14" />
+            <state relative-caret-position="391">
+              <caret line="80" column="35" lean-forward="false" selection-start-line="80" selection-start-column="35" selection-end-line="80" selection-end-column="35" />
               <folding />
             </state>
           </provider>
@@ -66,8 +58,8 @@
       <file leaf-file-name="CustomControllerProvider.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/API/v1/REST/Controller/CustomControllerProvider.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="731">
-              <caret line="51" column="48" lean-forward="false" selection-start-line="51" selection-start-column="48" selection-end-line="51" selection-end-column="48" />
+            <state relative-caret-position="170">
+              <caret line="31" column="39" lean-forward="false" selection-start-line="31" selection-start-column="39" selection-end-line="31" selection-end-column="39" />
               <folding>
                 <element signature="e#6#85#0#PHP" expanded="true" />
                 <element signature="e#123#165#0#PHP" expanded="true" />
@@ -79,8 +71,8 @@
       <file leaf-file-name="SourceControllerProvider.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/API/v1/REST/Controller/SourceControllerProvider.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="544">
-              <caret line="40" column="0" lean-forward="false" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
+            <state relative-caret-position="377">
+              <caret line="36" column="40" lean-forward="false" selection-start-line="36" selection-start-column="40" selection-end-line="36" selection-end-column="40" />
               <folding>
                 <element signature="e#6#89#0#PHP" expanded="true" />
                 <element signature="e#127#149#0#PHP" expanded="true" />
@@ -89,25 +81,12 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="sales.html.twig" pinned="false" current-in-tab="false">
+      <file leaf-file-name="sales.html.twig" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/views/sales.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="87" column="68" lean-forward="false" selection-start-line="87" selection-start-column="68" selection-end-line="87" selection-end-column="68" />
+            <state relative-caret-position="374">
+              <caret line="53" column="83" lean-forward="false" selection-start-line="53" selection-start-column="83" selection-end-line="53" selection-end-column="83" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ItemControllerProvider.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/API/v1/REST/Controller/ItemControllerProvider.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="16" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-              <folding>
-                <element signature="e#6#85#0#PHP" expanded="true" />
-                <element signature="e#123#165#0#PHP" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -143,6 +122,8 @@
       <find>selectClient</find>
       <find>client</find>
       <find>items</find>
+      <find>getCustom</find>
+      <find>customs</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -153,18 +134,18 @@
       <list>
         <option value="$PROJECT_DIR$/src/API/v1/REST/SourceControllerProvider.php" />
         <option value="$PROJECT_DIR$/src/app.php" />
-        <option value="$PROJECT_DIR$/index.php" />
         <option value="$PROJECT_DIR$/web/templates/sales.twig.html" />
         <option value="$PROJECT_DIR$/web/templates/sales.html.twig" />
         <option value="$PROJECT_DIR$/src/sales/Controller/SalesControllerProvider.php" />
         <option value="$PROJECT_DIR$/app/views/base.html.twig" />
         <option value="$PROJECT_DIR$/src/API/v1/REST/Controller/ClientControllerProvider.php" />
-        <option value="$PROJECT_DIR$/src/API/v1/REST/Controller/SourceControllerProvider.php" />
         <option value="$PROJECT_DIR$/src/API/v1/REST/Controller/ItemControllerProvider.php" />
         <option value="$PROJECT_DIR$/app/app.php" />
-        <option value="$PROJECT_DIR$/app/views/sales.html.twig" />
+        <option value="$PROJECT_DIR$/src/API/v1/REST/Controller/SourceControllerProvider.php" />
         <option value="$PROJECT_DIR$/src/API/v1/REST/Controller/CustomControllerProvider.php" />
+        <option value="$PROJECT_DIR$/index.php" />
         <option value="$PROJECT_DIR$/web/assets/sales.source.js" />
+        <option value="$PROJECT_DIR$/app/views/sales.html.twig" />
       </list>
     </option>
   </component>
@@ -277,24 +258,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="Controller" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="project" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="project" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="css" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="fontawesome" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
@@ -422,12 +385,12 @@
       <workItem from="1499785147323" duration="8936000" />
       <workItem from="1499874205766" duration="10865000" />
       <workItem from="1499956584385" duration="14350000" />
-      <workItem from="1499997602634" duration="1364000" />
+      <workItem from="1499997602634" duration="4159000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="61823000" />
+    <option name="totallyTimeSpent" value="64618000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
@@ -789,14 +752,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="23" lean-forward="false" selection-start-line="2" selection-start-column="23" selection-end-line="2" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/sales/SalesControllerProvider.php" />
     <entry file="file://$PROJECT_DIR$/src/sales/Controller/SalesControllerProvider.php">
       <provider selected="true" editor-type-id="text-editor">
@@ -807,36 +762,6 @@
     </entry>
     <entry file="file://$USER_HOME$/AppData/Local/Temp/Temp1_vuejs-autocomple-example-master.zip/vuejs-autocomple-example-master/public/js/app.js" />
     <entry file="file://$PROJECT_DIR$/js/vue/components/autocomplete/vue2-autocomplete.js" />
-    <entry file="file://$PROJECT_DIR$/app/views/base.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="74" lean-forward="false" selection-start-line="11" selection-start-column="74" selection-end-line="11" selection-end-column="74" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/API/v1/REST/Controller/SourceControllerProvider.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="40" column="0" lean-forward="false" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
-          <folding>
-            <element signature="e#6#89#0#PHP" expanded="true" />
-            <element signature="e#127#149#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/API/v1/REST/Controller/ItemControllerProvider.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="16" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-          <folding>
-            <element signature="e#6#85#0#PHP" expanded="true" />
-            <element signature="e#123#165#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/API/v1/REST/Controller/ClientControllerProvider.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="714">
@@ -845,16 +770,6 @@
             <element signature="e#6#85#0#PHP" expanded="true" />
             <element signature="e#123#165#0#PHP" expanded="true" />
             <marker date="1499884891914" expanded="true" signature="1538:1573" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/app.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="34" column="60" lean-forward="false" selection-start-line="34" selection-start-column="60" selection-end-line="34" selection-end-column="60" />
-          <folding>
-            <element signature="e#6#85#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -869,8 +784,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/API/v1/REST/Controller/CustomControllerProvider.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="731">
-          <caret line="51" column="48" lean-forward="false" selection-start-line="51" selection-start-column="48" selection-end-line="51" selection-end-column="48" />
+        <state relative-caret-position="170">
+          <caret line="31" column="39" lean-forward="false" selection-start-line="31" selection-start-column="39" selection-end-line="31" selection-end-column="39" />
           <folding>
             <element signature="e#6#85#0#PHP" expanded="true" />
             <element signature="e#123#165#0#PHP" expanded="true" />
@@ -878,18 +793,66 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/sales.html.twig">
+    <entry file="file://$PROJECT_DIR$/src/API/v1/REST/Controller/SourceControllerProvider.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="87" column="68" lean-forward="false" selection-start-line="87" selection-start-column="68" selection-end-line="87" selection-end-column="68" />
+        <state relative-caret-position="377">
+          <caret line="36" column="40" lean-forward="false" selection-start-line="36" selection-start-column="40" selection-end-line="36" selection-end-column="40" />
+          <folding>
+            <element signature="e#6#89#0#PHP" expanded="true" />
+            <element signature="e#127#149#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/app.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="258">
+          <caret line="24" column="39" lean-forward="true" selection-start-line="24" selection-start-column="39" selection-end-line="24" selection-end-column="39" />
+          <folding>
+            <element signature="e#6#85#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/API/v1/REST/Controller/ItemControllerProvider.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="16" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+          <folding>
+            <element signature="e#6#85#0#PHP" expanded="true" />
+            <element signature="e#123#165#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/base.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="74" lean-forward="false" selection-start-line="11" selection-start-column="74" selection-end-line="11" selection-end-column="74" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web/assets/sales.source.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="614">
-          <caret line="140" column="14" lean-forward="false" selection-start-line="140" selection-start-column="14" selection-end-line="140" selection-end-column="14" />
+        <state relative-caret-position="391">
+          <caret line="80" column="35" lean-forward="false" selection-start-line="80" selection-start-column="35" selection-end-line="80" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/sales.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="53" column="83" lean-forward="false" selection-start-line="53" selection-start-column="83" selection-end-line="53" selection-end-column="83" />
           <folding />
         </state>
       </provider>

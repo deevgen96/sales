@@ -17,7 +17,7 @@
                 <div class="form-group col-xs-2">
                     <label for="source_custom">Номер заказа:</label>
                     <select v-model="custom" class="form-control" id="source_custom">
-                        <option v-for="cstm in customs" :value="cstm">${ cstm.custom_name }</option>
+                        <option v-for="cstm in source_customs" :value="cstm">${ cstm.custom_name }</option>
                     </select>
                     <span>Выбран: ${ custom }</span>
                 </div>
@@ -38,15 +38,22 @@
         <div class="container-fluid">
             <div class="col-xs-12 col-md-12 col-lg-12 col-sm-12">
                 <ul class="nav nav-tabs" role="tablist">
-                    <li role="presentation" class="active"><a href="#customs" aria-controls="customs" role="tab"
-                                                              data-toggle="tab">Заказы</a></li>
+                    <li role="presentation"><a href="#source" aria-controls="source" role="tab"
+                                               data-toggle="tab">Источники</a></li>
+                    <li role="presentation"><a href="#customs" aria-controls="customs" role="tab"
+                                               data-toggle="tab">Заказы</a></li>
+                    <li role="presentation" class="active"><a href="#source_customs" aria-controls="source_customs"
+                                                              role="tab"
+                                                              data-toggle="tab">Заказанные товары</a></li>
                     <li role="presentation"><a href="#payments" aria-controls="payments" role="tab" data-toggle="tab">Оплаты</a>
                     </li>
                     <li role="presentation"><a href="#clients" aria-controls="clients" role="tab" data-toggle="tab">Клиенты</a>
                     </li>
                 </ul>
                 <div class="tab-content">
-                    <div role="tabpanel" class="tab-pane active" id="customs">
+                    <div role="tabpanel" class="tab-pane active" id="source"></div>
+                    <div role="tabpanel" class="tab-pane active" id="customs"></div>
+                    <div role="tabpanel" class="tab-pane active" id="source_customs">
                         <button class="btn btn-default pull-right" type="button" data-toggle="modal"
                                 data-target="#editItem" @click="setEditItemDefault"><i class="fa fa-plus"
                                                                                        aria-hidden="true"></i>&nbsp;Добавить
