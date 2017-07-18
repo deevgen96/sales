@@ -18,14 +18,16 @@ window.onload = function () {
             client: {'client_id': 0},
             searchClient: null,
             editClient: {'source_price': 0},
-            editItem: {},
+            editCustomItem: {},
+            editSource: {},
             sex: [
                 {'name': 'Женщина'},
                 {'name': 'Мужчина'},
                 {'name': 'Девочка'},
                 {'name': 'Мальчик'}
             ],
-            api_url: 'http://localhost/index.php'
+            api_url: 'http://localhost/index.php',
+            image_url: '/web/images/',
         },
         watch: {
             source: function () {
@@ -57,7 +59,7 @@ window.onload = function () {
                 return client_array;
             },
             salePrice: function () {
-                return this.editItem.source_price * 1.2;
+                return this.editCustomItem.source_price * 1.2;
             },
         },
         methods: {
@@ -97,8 +99,9 @@ window.onload = function () {
 
             getCustomItem: function (custom_id) {
                 s = this;
-                this.$http.get(s.api_url + '/api/v1/rest/custom/' + custom_id).then(function (response) {
+                this.$http.get(s.api_url + '/api/v1/rest/custom/' + custom_id + '/item').then(function (response) {
                     s.custom_items = response.data;
+                    console.log(s.custom_items);
                 }).catch(function () {
                     console.log('Ошибка запроса данных');
                 });
@@ -121,28 +124,46 @@ window.onload = function () {
                     console.log('Ошибка запроса данных');
                 });
             },
-            setItemOnce: function () {
+            setCustomItemOnce: function () {
                 s = this;
-                $.post(s.api_url + '/api/v1/rest/custom/item', s.editItem).then(function (response) {
+                $custom_id = s.editCustomItem.custom_id;
+                this.$http.post(s.api_url + '/api/v1/rest/source/custom/' + $custom_id + '/item/', s.editCustomItem).then(function (response) {
                     s.custom_items = response.data;
                 }).catch(function () {
                     console.log('Ошибка запроса данных');
                 });
             },
-            deleteItem: function (index) {
+            setSource: function () {
                 s = this;
-                log_id = this.custom_items[index].log_id;
-                this.$http.delete(s.api_url + '/api/v1/rest/custom/item/' + log_id).then(function (response) {
-                    s.custom_items = response.data;
-
-                    console.log(s.custom_items);
+                this.$http.post(s.api_url + '/api/v1/rest/source/', s.editSource).then(function (response) {
+                    s.sources = response.data;
                 }).catch(function () {
                     console.log('Ошибка запроса данных');
                 });
             },
-            setItemMulti: function () {
-                this.setItemOnce();
-                this.setEditItemDefault();
+            deleteSource: function (index) {
+                s = this;
+                source_id = s.sources[index].source_id;
+                this.$http.delete(s.api_url + '/api/v1/rest/source/' + source_id).then(function (response) {
+                    s.sources = response.data;
+                }).catch(function () {
+                    console.log('Ошибка запроса данных');
+                });
+            },
+            deleteCustomItem: function (index) {
+                s = this;
+                log_id = s.custom_items[index].log_id;
+                $custom_id = s.custom_items[index].custom_id;
+                ;
+                this.$http.delete(s.api_url + '/api/v1/rest/source/custom/' + $custom_id + 'item/' + log_id).then(function (response) {
+                    s.custom_items = response.data;
+                }).catch(function () {
+                    console.log('Ошибка запроса данных');
+                });
+            },
+            setCustomItemMulti: function () {
+                this.setCustomItemOnce();
+                this.setEditClientDefault();
             },
             selectClient: function (client) {
                 this.client = client;
@@ -154,6 +175,12 @@ window.onload = function () {
             setEditClient: function (index) {
                 this.editClient = this.clients[index];
             },
+            setEditSource: function (index) {
+                this.editSource = this.sources[index];
+            },
+            setEditSourceDefault: function () {
+                this.editSource = {source_id: 0, source_name: '', source_url: '', image_url: ''};
+            },
             setEditClientDefault: function () {
                 this.editClient = {
                     client_id: 0,
@@ -164,12 +191,11 @@ window.onload = function () {
                     client_greeting: 'Здравствуйте'
                 };
             },
-            setEditItem: function (index) {
-                this.editItem = this.custom_items[index];
-                console.log(this.editItem);
+            setCustomItem: function (index) {
+                this.editCustomItem = this.custom_items[index];
             },
-            setEditItemDefault: function () {
-                this.editItem = {
+            setCustomItemDefault: function () {
+                this.editCustomItem = {
                     log_id: 0,
                     client_id: this.client.client_id,
                     client_name: this.client.client_name,
@@ -180,10 +206,14 @@ window.onload = function () {
                     item_link: '',
                     item_size: '',
                     item_count: 1,
+                    item_photo: '',
                     sex: '',
-                    source_price: 0.00,
-                    sale_price: 0.00,
+                    source_price: null,
+                    sale_price: null,
                 }
+            },
+            getImageUrl: function (imgName) {
+                return this.image_url + this.source.image_folder + '/' + imgName;
             }
         },
         created: function () {

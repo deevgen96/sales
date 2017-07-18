@@ -38,11 +38,11 @@
         <div class="container-fluid">
             <div class="col-xs-12 col-md-12 col-lg-12 col-sm-12">
                 <ul class="nav nav-tabs" role="tablist">
-                    <li role="presentation"><a href="#source" aria-controls="source" role="tab"
+                    <li role="presentation"><a href="#sources" aria-controls="sources" role="tab"
                                                data-toggle="tab">Источники</a></li>
                     <li role="presentation"><a href="#customs" aria-controls="customs" role="tab"
                                                data-toggle="tab">Заказы</a></li>
-                    <li role="presentation" class="active"><a href="#source_customs" aria-controls="source_customs"
+                    <li role="presentation" class="active"><a href="#custom_items" aria-controls="custom_items"
                                                               role="tab"
                                                               data-toggle="tab">Заказанные товары</a></li>
                     <li role="presentation"><a href="#payments" aria-controls="payments" role="tab" data-toggle="tab">Оплаты</a>
@@ -51,11 +51,41 @@
                     </li>
                 </ul>
                 <div class="tab-content">
-                    <div role="tabpanel" class="tab-pane active" id="source"></div>
-                    <div role="tabpanel" class="tab-pane active" id="customs"></div>
-                    <div role="tabpanel" class="tab-pane active" id="source_customs">
+                    <div role="tabpanel" class="tab-pane" id="sources">
                         <button class="btn btn-default pull-right" type="button" data-toggle="modal"
-                                data-target="#editItem" @click="setEditItemDefault"><i class="fa fa-plus"
+                                data-target="#editSource" @click="setEditSourceDefault"><i class="fa fa-plus"
+                                                                                       aria-hidden="true"></i>&nbsp;Добавить
+                            Источник
+                        </button>
+                        <table class="table">
+                            <thead>
+                            <td>#</td>
+                            <td>Источник</td>
+                            <td>Ссылка на источник</td>
+                            <td>Папка с картинками</td>
+                            <td></td>
+                            </thead>
+                            <tbody>
+                            <tr v-for="(src, index) in sources">
+                                <td>${src.source_id}</td>
+                                <td>${src.source_name}</td>
+                                <td><a :href="src.source_url">${src.source_url}</a></td>
+                                <td>${src.image_folder}</td>
+                                <td style="width:100px">
+                                    <button class="btn btn-default btn-sm" type="button" data-toggle="modal"
+                                            data-target="#editSource" @click="setEditSource(index)"><i
+                                                class="fa fa-pencil" aria-hidden="true"></i></button>
+                                    <button class="btn btn-default btn-sm" type="button" @click="deleteSource(index)"><i
+                                                class="fa fa-trash" aria-hidden="true"></i></button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="customs"></div>
+                    <div role="tabpanel" class="tab-pane active" id="custom_items">
+                        <button class="btn btn-default pull-right" type="button" data-toggle="modal"
+                                data-target="#editCustomItem" @click="setCustomItemDefault"><i class="fa fa-plus"
                                                                                        aria-hidden="true"></i>&nbsp;Добавить
                             позицию
                         </button>
@@ -72,6 +102,9 @@
                             <td>Начальная цена</td>
                             <td>Конечная цена</td>
                             <td>Стоимость</td>
+                            <td>Фото</td>
+                            <td>Отказ</td>
+                            <td>Не подошло</td>
                             <td></td>
                             <td></td>
                             </thead>
@@ -89,13 +122,16 @@
                                 <td>${itm.source_price}</td>
                                 <td>${itm.sale_price}</td>
                                 <td>${itm.total}</td>
+                                <td><div class="thumbnail" v-if="itm.item_photo"><image :src="getImageUrl(itm.item_photo)" /></div></td>
+                                <td></td>
+                                <td></td>
                                 <td>
                                     <button class="btn btn-default btn-sm" type="button" data-toggle="modal"
-                                            data-target="#editItem" @click="setEditItem(index)"><i
+                                            data-target="#editCustomItem" @click="setCustomItem(index)"><i
                                                 class="fa fa-pencil" aria-hidden="true"></i></button>
                                 </td>
                                 <td>
-                                    <button class="btn btn-default btn-sm" type="button" @click="deleteItem(index)"><i
+                                    <button class="btn btn-default btn-sm" type="button" @click="deleteCustomItem(index)"><i
                                                 class="fa fa-trash" aria-hidden="true"></i></button>
                                 </td>
                             </tr>
@@ -136,6 +172,157 @@
                             </tr>
                             </tbody>
                         </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="editSource" tabindex="-1" role="dialog" aria-labelledby="editSourceLabes">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Изменение источника: ${editSource.source_name}</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label for="inputId" class="col-sm-2 control-label">#</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="inputId"
+                                           v-model="editSource.source_id" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputName" class="col-sm-2 control-label">Название</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="inputName" placeholder="Название"
+                                           v-model="editSource.source_name">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputSourceUrl" class="col-sm-2 control-label">Ссылка</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="inputSourceUrl"
+                                           placeholder="Ссылка" v-model="editSource.source_url">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputImageUrl" class="col-sm-2 control-label">Папка с изображениями товаров</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="inputImageUrl"
+                                           placeholder="Папка с изображениями товаров" v-model="editSource.image_folder">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" @click="setSource">
+                            Сохранить
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="editCustomItem" tabindex="-1" role="dialog" aria-labelledby="editCustomItemLabes">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel"> ${source.source_name}, ${custom.custom_name} для
+                            ${editCustomItem.client_name}</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label for="inputId" class="col-sm-2 control-label">#</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control input-sm" id="inputId"
+                                           v-model="editCustomItem.log_id" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputItem" class="col-sm-2 control-label">Тип</label>
+                                <div class="col-sm-10">
+                                    <select v-model="editCustomItem.item_id" class="form-control input-sm" id="inputSex">
+                                        <option v-for="itm in items" :value="itm.item_id">${ itm.item_name }</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputArticle" class="col-sm-2 control-label">Артикул</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control input-sm" id="inputArticle"
+                                           placeholder="Артикул" v-model="editCustomItem.article">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputLink" class="col-sm-2 control-label">Ссылка</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control input-sm" id="inputLink" placeholder="Ссылка"
+                                           v-model="editCustomItem.item_link">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputSize" class="col-sm-2 control-label">Размер</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control input-sm" id="inputSize" placeholder="Размер"
+                                           v-model="editCustomItem.item_size">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputCount" class="col-sm-2 control-label">Количество</label>
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control input-sm" min="1" id="inputCount"
+                                           placeholder="Количество"
+                                           v-model="editCustomItem.item_count">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputImage" class="col-sm-2 control-label">Изображение</label>
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control input-sm" min="1" id="inputImage"
+                                           placeholder="Изображение"
+                                           v-model="editCustomItem.item_photo">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputSex" class="col-sm-2 control-label">Пол</label>
+                                <div class="col-sm-10">
+                                    <select v-model="editCustomItem.sex" class="form-control input-sm" id="inputSex">
+                                        <option v-for="sx in sex" :value="sx.name">${ sx.name }</option>
+                                    </select>
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputSourcePrice" class="col-sm-2 control-label">Начальная цена</label>
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control input-sm" id="inputSourcePrice"
+                                           placeholder="Начальная цена"
+                                           v-model="editCustomItem.source_price">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputSalePrice" class="col-sm-2 control-label">Цена продажи</label>
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control input-sm" id="inputSalePrice"
+                                           placeholder="Цена продажи"
+                                           v-model="editCustomItem.sale_price">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Выйти</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" @click="setCustomItemOnce()">
+                            Сохранить и выйти
+                        </button>
+                        <button type="button" class="btn btn-primary" @click="setCustomItemMulti(); return false;">
+                            Сохранить и продолжить
+                        </button>
                     </div>
                 </div>
             </div>
@@ -198,100 +385,6 @@
                         <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
                         <button type="button" class="btn btn-primary" data-dismiss="modal" @click="setClient">
                             Сохранить
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal fade" id="editItem" tabindex="-1" role="dialog" aria-labelledby="editItemLabes">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                    aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel"> ${source.source_name}, ${custom.custom_name} для
-                            ${editItem.client_name}</h4>
-                    </div>
-                    <div class="modal-body">
-                        <form class="form-horizontal">
-                            <div class="form-group">
-                                <label for="inputId" class="col-sm-2 control-label">#</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control input-sm" id="inputId"
-                                           v-model="editItem.log_id" disabled>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputItem" class="col-sm-2 control-label">Тип</label>
-                                <div class="col-sm-10">
-                                    <select v-model="editItem.item_id" class="form-control input-sm" id="inputSex">
-                                        <option v-for="itm in items" :value="itm.item_id">${ itm.item_name }</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputArticle" class="col-sm-2 control-label">Артикул</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control input-sm" id="inputArticle"
-                                           placeholder="Артикул" v-model="editItem.article">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputLink" class="col-sm-2 control-label">Ссылка</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control input-sm" id="inputLink" placeholder="Ссылка"
-                                           v-model="editItem.item_link">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputSize" class="col-sm-2 control-label">Размер</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control input-sm" id="inputSize" placeholder="Размер"
-                                           v-model="editItem.item_size">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputCount" class="col-sm-2 control-label">Количество</label>
-                                <div class="col-sm-10">
-                                    <input type="number" class="form-control input-sm" min="1" id="inputCount"
-                                           placeholder="Количество"
-                                           v-model="editItem.item_count">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputSex" class="col-sm-2 control-label">Пол</label>
-                                <div class="col-sm-10">
-                                    <select v-model="editItem.sex" class="form-control input-sm" id="inputSex">
-                                        <option v-for="sx in sex" :value="sx.name">${ sx.name }</option>
-                                    </select>
-
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputSourcePrice" class="col-sm-2 control-label">Начальная цена</label>
-                                <div class="col-sm-10">
-                                    <input type="number" class="form-control input-sm" id="inputSourcePrice"
-                                           placeholder="Начальная цена"
-                                           v-model="editItem.source_price">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputSalePrice" class="col-sm-2 control-label">Цена продажи</label>
-                                <div class="col-sm-10">
-                                    <input type="number" class="form-control input-sm" id="inputSalePrice"
-                                           placeholder="Цена продажи"
-                                           v-model="editItem.sale_price">
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Выйти</button>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" @click="setItemOnce()">
-                            Сохранить и выйти
-                        </button>
-                        <button type="button" class="btn btn-primary" @click="setItemMulti(); return false;">
-                            Сохранить и продолжить
                         </button>
                     </div>
                 </div>
