@@ -26,6 +26,7 @@ window.onload = function () {
                 {'name': 'Девочка'},
                 {'name': 'Мальчик'}
             ],
+            editCustom: {'custom_name': ''},
             api_url: 'http://localhost/index.php',
             image_url: '/web/images/',
         },
@@ -141,10 +142,29 @@ window.onload = function () {
                     console.log('Ошибка запроса данных');
                 });
             },
+            setSourceCustom: function () {
+                s = this;
+                $source_id = s.editCustom.source_id;
+                this.$http.post(s.api_url + '/api/v1/rest/source/' + $source_id + '/custom/post/', s.editCustom).then(function (response) {
+                    s.source_customs = response.data;
+                }).catch(function () {
+                    console.log('Ошибка запроса данных');
+                });
+            },
+            deleteSourceCustom: function (index) {
+                s = this;
+                $custom_id = s.source_customs[index].custom_id;
+                $source_id = s.source_customs[index].source_id;
+                this.$http.delete(s.api_url + '/api/v1/rest/source/' + $source_id + '/custom/' + $custom_id + '/delete/').then(function (response) {
+                    s.source_customs = response.data;
+                }).catch(function () {
+                    console.log('Ошибка запроса данных');
+                });
+            },
             deleteSource: function (index) {
                 s = this;
                 source_id = s.sources[index].source_id;
-                this.$http.delete(s.api_url + '/api/v1/rest/source/' + source_id).then(function (response) {
+                this.$http.delete(s.api_url + '/api/v1/rest/source/' + source_id + '/').then(function (response) {
                     s.sources = response.data;
                 }).catch(function () {
                     console.log('Ошибка запроса данных');
@@ -212,8 +232,26 @@ window.onload = function () {
                     sale_price: null,
                 }
             },
+            setEditCustomDefault: function () {
+                this.editCustom = {
+                    custom_id: 0,
+                    source_id: this.source.source_id,
+                    custom_numb: null,
+                    custom_name: 'Заказ №',
+                    send_date: null,
+                    delivery_date: null
+                };
+            },
+            editSourceCustom: function (index) {
+                this.editCustom = this.source_customs[index];
+            },
             getImageUrl: function (imgName) {
                 return this.image_url + this.source.image_folder + '/' + imgName;
+            },
+            getDateFormat: function (dateVal) {
+                var date = new Date(dateVal);
+                if (date)
+                    return (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + '.' + ((date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1))  + '.' + date.getFullYear();
             }
         },
         created: function () {

@@ -54,7 +54,7 @@
                     <div role="tabpanel" class="tab-pane" id="sources">
                         <button class="btn btn-default pull-right" type="button" data-toggle="modal"
                                 data-target="#editSource" @click="setEditSourceDefault"><i class="fa fa-plus"
-                                                                                       aria-hidden="true"></i>&nbsp;Добавить
+                                                                                           aria-hidden="true"></i>&nbsp;Добавить
                             Источник
                         </button>
                         <table class="table">
@@ -82,11 +82,44 @@
                             </tbody>
                         </table>
                     </div>
-                    <div role="tabpanel" class="tab-pane" id="customs"></div>
+                    <div role="tabpanel" class="tab-pane" id="customs">
+                        <button class="btn btn-default pull-right" type="button" data-toggle="modal"
+                                data-target="#editCustom" @click="setEditCustomDefault"><i class="fa fa-plus"
+                                                                                           aria-hidden="true"></i>&nbsp;Добавить
+                            Заказ
+                        </button>
+                        <table class="table">
+                            <thead>
+                            <td>#</td>
+                            <td>Номер</td>
+                            <td>Название</td>
+                            <td>Дата отправки</td>
+                            <td>Дата прихода</td>
+                            <td></td>
+                            </thead>
+                            <tbody>
+                            <tr v-for="(cst, index) in source_customs">
+                                <td>${cst.custom_id}</td>
+                                <td>${cst.custom_numb}</td>
+                                <td>${cst.custom_name}</td>
+                                <td>${cst.send_date}</td>
+                                <td>${cst.delivery_date}</td>
+                                <td style="width:100px">
+                                    <button class="btn btn-default btn-sm" type="button" data-toggle="modal"
+                                            data-target="#editCustom" @click="editSourceCustom(index)"><i
+                                                class="fa fa-pencil" aria-hidden="true"></i></button>
+                                    <button class="btn btn-default btn-sm" type="button"
+                                            @click="deleteSourceCustom(index)"><i
+                                                class="fa fa-trash" aria-hidden="true"></i></button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                     <div role="tabpanel" class="tab-pane active" id="custom_items">
                         <button class="btn btn-default pull-right" type="button" data-toggle="modal"
                                 data-target="#editCustomItem" @click="setCustomItemDefault"><i class="fa fa-plus"
-                                                                                       aria-hidden="true"></i>&nbsp;Добавить
+                                                                                               aria-hidden="true"></i>&nbsp;Добавить
                             позицию
                         </button>
                         <table class="table">
@@ -122,7 +155,11 @@
                                 <td>${itm.source_price}</td>
                                 <td>${itm.sale_price}</td>
                                 <td>${itm.total}</td>
-                                <td><div class="thumbnail" v-if="itm.item_photo"><image :src="getImageUrl(itm.item_photo)" /></div></td>
+                                <td>
+                                    <div class="thumbnail" v-if="itm.item_photo">
+                                        <image :src="getImageUrl(itm.item_photo)"/>
+                                    </div>
+                                </td>
                                 <td></td>
                                 <td></td>
                                 <td>
@@ -131,7 +168,8 @@
                                                 class="fa fa-pencil" aria-hidden="true"></i></button>
                                 </td>
                                 <td>
-                                    <button class="btn btn-default btn-sm" type="button" @click="deleteCustomItem(index)"><i
+                                    <button class="btn btn-default btn-sm" type="button"
+                                            @click="deleteCustomItem(index)"><i
                                                 class="fa fa-trash" aria-hidden="true"></i></button>
                                 </td>
                             </tr>
@@ -208,10 +246,12 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="inputImageUrl" class="col-sm-2 control-label">Папка с изображениями товаров</label>
+                                <label for="inputImageUrl" class="col-sm-2 control-label">Папка с изображениями
+                                    товаров</label>
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control" id="inputImageUrl"
-                                           placeholder="Папка с изображениями товаров" v-model="editSource.image_folder">
+                                           placeholder="Папка с изображениями товаров"
+                                           v-model="editSource.image_folder">
                                 </div>
                             </div>
                         </form>
@@ -219,6 +259,65 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
                         <button type="button" class="btn btn-primary" data-dismiss="modal" @click="setSource">
+                            Сохранить
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="editCustom" tabindex="-1" role="dialog" aria-labelledby="editCustomLabes">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Изменение Заказа: ${editCustom.custom_name}</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label for="inputId" class="col-sm-2 control-label">#</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="inputId"
+                                           v-model="editCustom.custom_id" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputNumb" class="col-sm-2 control-label">Номер</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="inputNumb" placeholder="Номер"
+                                           v-model="editCustom.custom_numb">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputName" class="col-sm-2 control-label">Название</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="inputName" placeholder="Название"
+                                           v-model="editCustom.custom_name">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputSend" class="col-sm-2 control-label">Дата отправки</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="inputSend"
+                                           placeholder="Дата отправки" v-model="editCustom.send_date">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputDelivery" class="col-sm-2 control-label">Дата поступления
+                                </label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="inputDelivery"
+                                           placeholder="Дата поступления"
+                                           v-model="editCustom.delivery_date">
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" @click="setSourceCustom">
                             Сохранить
                         </button>
                     </div>
@@ -246,7 +345,8 @@
                             <div class="form-group">
                                 <label for="inputItem" class="col-sm-2 control-label">Тип</label>
                                 <div class="col-sm-10">
-                                    <select v-model="editCustomItem.item_id" class="form-control input-sm" id="inputSex">
+                                    <select v-model="editCustomItem.item_id" class="form-control input-sm"
+                                            id="inputSex">
                                         <option v-for="itm in items" :value="itm.item_id">${ itm.item_name }</option>
                                     </select>
                                 </div>

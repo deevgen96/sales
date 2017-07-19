@@ -44,13 +44,13 @@ class SourceControllerProvider implements ControllerProviderInterface
 
         $ctrl->post('/', function (Request $request) use ($app) {
             $source = $request->request->all();
-            $params = array($source['source_id'], $source['source_name'], $source['source_url'],$source['image_folder']);
+            $params = array($source['source_id'], $source['source_name'], $source['source_url'], $source['image_folder']);
             $sql = 'call source_set(?, ?, ?, ?)';
             $post = $app['db']->fetchAll($sql, $params);
             return new Response(json_encode($post), 200, ['Content-Type' => 'application/json']);
         });
 
-        $ctrl->delete('/{source_id}', function ($source_id) use ($app) {
+        $ctrl->delete('/{source_id}/', function ($source_id) use ($app) {
             $params = array((int)$source_id);
             $sql = 'call source_remove(?)';
             $post = $app['db']->fetchAll($sql, $params);
@@ -63,13 +63,13 @@ class SourceControllerProvider implements ControllerProviderInterface
             $params = array($custom_item['log_id'], $custom_item['client_id'], $custom_id
             , $custom_item['item_id'], $custom_item['article'], $custom_item['item_link']
             , $custom_item['item_size'], $custom_item['item_count'], $custom_item['item_photo'], $custom_item['sex']
-            , $custom_item['source_price'], $custom_item['sale_price'],$custom_item['decline_before_send'],$custom_item['decline_after_sale']);
+            , $custom_item['source_price'], $custom_item['sale_price'], $custom_item['decline_before_send'], $custom_item['decline_after_sale']);
             $sql = 'call custom_set_item(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
             $post = $app['db']->fetchAll($sql, $params);
             return new Response(json_encode($post), 200, ['Content-Type' => 'application/json']);
         });
 
-        $ctrl->delete('/custom/{custom_id}/item/{log_id}', function ($custom_id, $log_id) use ($app) {
+        $ctrl->delete('/custom/{custom_id}/item/{log_id}/', function ($custom_id, $log_id) use ($app) {
             $param = array((int)$log_id);
             $sql = 'call custom_remove_item(?)';
             $post = $app['db']->fetchAll($sql, $param);
@@ -77,6 +77,21 @@ class SourceControllerProvider implements ControllerProviderInterface
             return new Response(json_encode($post), 200, ['Content-Type' => 'application/json']);
         });
         //return $app['util']->stmtToArray($app, $stmt, 200, 400);
+
+        $ctrl->post('/{source_id}/custom/post/', function (Request $request, $source_id) use ($app) {
+            $custom = $request->request->all();
+            $params = array($source_id, $custom['custom_id'], $custom['custom_numb'], $custom['custom_name'], null, null);
+            $sql = 'call custom_set(?, ?, ?, ?, ?, ?)';
+            $post = $app['db']->fetchAll($sql, $params);
+            return new Response(json_encode($post), 200, ['Content-Type' => 'application/json']);
+        });
+
+        $ctrl->delete('/{source_id}/custom/{custom_id}/delete/', function ($source_id, $custom_id) use ($app) {
+            $params = array($custom_id);
+            $sql = 'call custom_remove(?)';
+            $post = $app['db']->fetchAll($sql, $params);
+            return new Response(json_encode($post), 200, ['Content-Type' => 'application/json']);
+        });
 
         return $ctrl;
     }
