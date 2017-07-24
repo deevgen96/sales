@@ -1,0 +1,31 @@
+<div role="tabpanel" class="tab-pane" id="sources">
+    <button class="btn btn-default pull-right" type="button" data-toggle="modal"
+            data-target="#editSource" @click="setEditSourceDefault"><i class="fa fa-plus"
+                                                                       aria-hidden="true"></i>&nbsp;Добавить
+        Источник
+    </button>
+    <table class="table">
+        <thead>
+        <td>#</td>
+        <td>Источник</td>
+        <td>Ссылка на источник</td>
+        <td>Папка с картинками</td>
+        <td></td>
+        </thead>
+        <tbody>
+        <tr v-for="(src, index) in sources">
+            <td>${src.source_id}</td>
+            <td>${src.source_name}</td>
+            <td><a :href="src.source_url">${src.source_url}</a></td>
+            <td>${src.image_folder}</td>
+            <td style="width:100px">
+                <button class="btn btn-default btn-sm" type="button" data-toggle="modal"
+                        data-target="#editSource" @click="setEditSource(index)"><i
+                            class="fa fa-pencil" aria-hidden="true"></i></button>
+                <button class="btn btn-default btn-sm" type="button" @click="deleteSource(index)"><i
+                            class="fa fa-trash" aria-hidden="true"></i></button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
