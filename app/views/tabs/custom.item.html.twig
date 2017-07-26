@@ -24,7 +24,7 @@
         <td></td>
         </thead>
         <tbody>
-        <tr v-for="(itm, index) in custom_items"
+        <tr v-for="(itm, index) in custom_items | orderBy 'article'"
             v-if="((client.client_id) && itm.client_id == client.client_id) || (!client.client_id)">
             <td>${itm.log_id}</td>
             <td>${itm.client_name}</td>
@@ -42,8 +42,8 @@
                     <image :src="getImageUrl(itm.item_photo)"/>
                 </div>
             </td>
-            <td></td>
-            <td></td>
+            <td><input type="checkbox" :checked="itm.decline_before_send == 1" :value="itm.decline_before_send" disabled></td>
+            <td><input type="checkbox" :checked="itm.decline_after_sale == 1" :value="itm.decline_after_sale" disabled></td>
             <td>
                 <button class="btn btn-default btn-sm" type="button" data-toggle="modal"
                         data-target="#editCustomItem" @click="setCustomItem(index)"><i

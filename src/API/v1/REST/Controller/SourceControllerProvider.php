@@ -69,7 +69,7 @@ class SourceControllerProvider implements ControllerProviderInterface
             return new Response(json_encode($post), 200, ['Content-Type' => 'application/json']);
         });
 
-        $ctrl->delete('/custom/{custom_id}/item/{log_id}/', function ($custom_id, $log_id) use ($app) {
+        $ctrl->delete('/custom/{custom_id}/item/{log_id}/delete/', function ($custom_id, $log_id) use ($app) {
             $param = array((int)$log_id);
             $sql = 'call custom_remove_item(?)';
             $post = $app['db']->fetchAll($sql, $param);
@@ -90,6 +90,31 @@ class SourceControllerProvider implements ControllerProviderInterface
             $params = array($custom_id);
             $sql = 'call custom_remove(?)';
             $post = $app['db']->fetchAll($sql, $params);
+            return new Response(json_encode($post), 200, ['Content-Type' => 'application/json']);
+        });
+
+        $ctrl->get('/{source_id}/custom/{custom_id}/payment/', function ($source_id, $custom_id) use ($app) {
+            $param = array((int)$custom_id);
+            $sql = 'call custom_get_payments(?)';
+            $post = $app['db']->fetchAll($sql, $param);
+            header('Content-Type: application/json');
+            return new Response(json_encode($post), 200, ['Content-Type' => 'application/json']);
+        });
+
+        $ctrl->post('/{source_id}/custom/{custom_id}/payment/', function (Request $request, $source_id, $custom_id) use ($app) {
+            $payment = $request->request->all();
+            $param = array($payment['payment_id'], $payment['client_id'], $payment['custom_id'], $payment['payment_date'], $payment['payment_sum']);
+            $sql = 'call custom_set_payment(?, ?, ?, ?, ?)';
+            $post = $app['db']->fetchAll($sql, $param);
+            header('Content-Type: application/json');
+            return new Response(json_encode($post), 200, ['Content-Type' => 'application/json']);
+        });
+
+        $ctrl->delete('/{source_id}/custom/{custom_id}/payment/{payment_id}', function ($source_id, $custom_id, $payment_id) use ($app) {
+            $param = array((int)$payment_id);
+            $sql = 'call custom_remove_payment(?)';
+            $post = $app['db']->fetchAll($sql, $param);
+            header('Content-Type: application/json');
             return new Response(json_encode($post), 200, ['Content-Type' => 'application/json']);
         });
 

@@ -1,1 +1,38 @@
-<div role="tabpanel" class="tab-pane" id="payments"></div>
+<div role="tabpanel" class="tab-pane" id="payments">
+    <button class="btn btn-default pull-right" type="button" data-toggle="modal"
+            data-target="#editPayment" @click="setPaymentDefault"><i class="fa fa-plus"
+                                                                           aria-hidden="true"></i>&nbsp;Добавить
+        позицию
+    </button>
+    <table class="table">
+        <thead>
+        <td>#</td>
+        <td>Клиент</td>
+        <td>Заказ</td>
+        <td>Дата оплаты</td>
+        <td>Сумма</td>
+        <td></td>
+        <td></td>
+        </thead>
+        <tbody>
+        <tr v-for="(pmt, index) in payments"
+            v-if="((pmt.client_id) && pmt.client_id == client.client_id) || (!client.client_id)">
+            <td>${pmt.payment_id}</td>
+            <td>${pmt.client_name}</td>
+            <td>${pmt.custom_name}</td>
+            <td>${pmt.payment_date}</td>
+            <td>${pmt.payment_sum}</td>
+            <td>
+                <button class="btn btn-default btn-sm" type="button" data-toggle="modal"
+                        data-target="#editPayment" @click="setPayment(index)"><i
+                            class="fa fa-pencil" aria-hidden="true"></i></button>
+            </td>
+            <td>
+                <button class="btn btn-default btn-sm" type="button"
+                        @click="deletePayment(index)"><i
+                            class="fa fa-trash" aria-hidden="true"></i></button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

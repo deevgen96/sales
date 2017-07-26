@@ -15,7 +15,7 @@
         <td></td>
         </thead>
         <tbody>
-        <tr v-for="(clt,index) in clients" v-if="(clt.client_id == client) || (!client)">
+        <tr v-for="(clt,index) in clients" v-if="(clt.client_id == client.client_id) || (!client.client_id)">
             <td>${clt.client_id}</td>
             <td>${clt.client_name}</td>
             <td><a :href="clt.profile_link" target="_blank">${clt.profile_link}</a></td>

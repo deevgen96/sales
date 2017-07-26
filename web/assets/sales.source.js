@@ -13,9 +13,11 @@ window.onload = function () {
             custom_items: [],
             items: [],
             clients: [],
+            payments: [],
             source: {'source_name': ''},
             custom: {'custom_name': ''},
             client: {'client_id': 0},
+            payment: {},
             searchClient: null,
             editClient: {'source_price': 0},
             editCustomItem: {},
@@ -27,6 +29,7 @@ window.onload = function () {
                 {'name': 'Мальчик'}
             ],
             editCustom: {'custom_name': ''},
+            editPayment: {},
             api_url: 'http://localhost/index.php',
             image_url: '/web/images/',
         },
@@ -36,6 +39,7 @@ window.onload = function () {
             },
             custom: function () {
                 this.getCustomItem(this.custom.custom_id);
+                this.getPayment(this.custom.custom_id);
             },
         },
         computed: {
@@ -102,7 +106,7 @@ window.onload = function () {
                 s = this;
                 this.$http.get(s.api_url + '/api/v1/rest/custom/' + custom_id + '/item').then(function (response) {
                     s.custom_items = response.data;
-                    console.log(s.custom_items);
+                    console.log( s.custom_items);
                 }).catch(function () {
                     console.log('Ошибка запроса данных');
                 });
@@ -112,6 +116,17 @@ window.onload = function () {
                 s = this;
                 this.$http.get(s.api_url + '/api/v1/rest/client/').then(function (response) {
                     s.clients = response.data;
+                }).catch(function () {
+                    console.log('Ошибка запроса данных');
+                });
+
+            },
+
+            getPayment: function (custom_id) {
+                s = this;
+                source_id = s.source.source_id;
+                this.$http.get(s.api_url + '/api/v1/rest/source/' + source_id + '/custom/' + custom_id + '/payment/').then(function (response) {
+                    s.payments = response.data;
                 }).catch(function () {
                     console.log('Ошибка запроса данных');
                 });
@@ -151,6 +166,17 @@ window.onload = function () {
                     console.log('Ошибка запроса данных');
                 });
             },
+
+            setPayment: function () {
+                s = this;
+                source_id = s.source.source_id;
+                custom_id = s.custom.custom_id;
+                this.$http.post(s.api_url + '/api/v1/rest/source/' + source_id + '/custom/' + custom_id + '/payment/', s.editPayment).then(function (response) {
+                    s.payments = response.data;
+                }).catch(function () {
+                    console.log('Ошибка запроса данных');
+                });
+            },
             deleteSourceCustom: function (index) {
                 s = this;
                 $custom_id = s.source_customs[index].custom_id;
@@ -173,10 +199,23 @@ window.onload = function () {
             deleteCustomItem: function (index) {
                 s = this;
                 log_id = s.custom_items[index].log_id;
-                $custom_id = s.custom_items[index].custom_id;
+                custom_id = s.custom_items[index].custom_id;
                 ;
-                this.$http.delete(s.api_url + '/api/v1/rest/source/custom/' + $custom_id + 'item/' + log_id).then(function (response) {
+                this.$http.delete(s.api_url + '/api/v1/rest/source/custom/' + custom_id + '/item/' + log_id + '/delete/').then(function (response) {
                     s.custom_items = response.data;
+                }).catch(function () {
+                    console.log('Ошибка запроса данных');
+                });
+            },
+
+            deletePayment: function (index) {
+                s = this;
+                payment_id = s.payment[index].payment_id;
+                custom_id = s.custom.custom_id;
+                source_id = s.source.source_id;
+                ;
+                this.$http.delete(s.api_url + '/api/v1/rest/source/' + source_id + '/custom/' + $custom_id + '/payment/' + payment_id).then(function (response) {
+                    s.payments = response.data;
                 }).catch(function () {
                     console.log('Ошибка запроса данных');
                 });
@@ -250,9 +289,20 @@ window.onload = function () {
             },
             getDateFormat: function (dateVal) {
                 var date = new Date(dateVal);
+                console.log(dateVal);
                 if (date)
-                    return (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + '.' + ((date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1))  + '.' + date.getFullYear();
+                    return (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + '.' + ((date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)) + '.' + date.getFullYear();
+            },
+            setPaymentDefault: function () {
+                this.editPayment = {
+                    payment_id: 0,
+                    custom_id: this.custom.custom_id,
+                    client_id: this.client.client_id,
+                    payment_date: '',
+                    payment_sum: 0.00
+                };
             }
+
         },
         created: function () {
             this.getSource();
