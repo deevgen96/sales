@@ -64,7 +64,7 @@ class SourceControllerProvider implements ControllerProviderInterface
             , $custom_item['item_id'], $custom_item['article'], $custom_item['item_link']
             , $custom_item['item_size'], $custom_item['item_count'], $custom_item['item_photo'], $custom_item['sex']
             , $custom_item['source_price'], $custom_item['sale_price'], $custom_item['decline_before_send'], $custom_item['decline_after_sale']);
-            $sql = 'call custom_set_item(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+            $sql = 'call custom_set_item(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
             $post = $app['db']->fetchAll($sql, $params);
             return new Response(json_encode($post), 200, ['Content-Type' => 'application/json']);
         });

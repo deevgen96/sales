@@ -32,6 +32,10 @@ window.onload = function () {
             editPayment: {},
             api_url: 'http://localhost/index.php',
             image_url: '/web/images/',
+            customItemOrder: {
+                'asc': 1,
+                'field': ''
+            },
         },
         watch: {
             source: function () {
@@ -66,6 +70,43 @@ window.onload = function () {
             salePrice: function () {
                 return this.editCustomItem.source_price * 1.2;
             },
+            customItemOrderByArticle: function () {
+                // Apply filter first
+                let result = this.custom_items;
+                // Sort the remaining values
+                let ascDesc = this.customItemOrder.asc ? 1 : -1;
+                return result.sort((a, b) => ascDesc * a.article.localeCompare(b.article));
+            },
+            customItemOrderByName: function () {
+                // Apply filter first
+                let result = this.custom_items;
+                // Sort the remaining values
+                let ascDesc = this.customItemOrder.asc ? 1 : -1;
+                return result.sort((a, b) => ascDesc * a.client_name.localeCompare(b.client_name));
+            },
+            sortClassArticle: function(){
+                return {
+                    'fa-sort-amount-asc': this.customItemOrder.asc && this.customItemOrder.field === 'article',
+                    'fa-sort-amount-desc': !this.customItemOrder.asc && this.customItemOrder.field === 'article'
+                }
+            },
+            sortClassClientName: function(){
+                return {
+                    'fa-sort-amount-asc': this.customItemOrder.asc && this.customItemOrder.field === 'client_name',
+                    'fa-sort-amount-desc': !this.customItemOrder.asc && this.customItemOrder.field === 'client_name'
+                }
+            }
+            ,
+            declineCustomItem: function(){
+                return {
+                    'danger': this.customItemOrder.asc && this.customItemOrder.field === 'client_name',
+                }
+            }
+        },
+
+        filteredAndSortedData() {
+
+
         },
         methods: {
             getSource: function () {
@@ -106,7 +147,6 @@ window.onload = function () {
                 s = this;
                 this.$http.get(s.api_url + '/api/v1/rest/custom/' + custom_id + '/item').then(function (response) {
                     s.custom_items = response.data;
-                    console.log( s.custom_items);
                 }).catch(function () {
                     console.log('Ошибка запроса данных');
                 });
@@ -285,7 +325,7 @@ window.onload = function () {
                 this.editCustom = this.source_customs[index];
             },
             getImageUrl: function (imgName) {
-                return this.image_url + this.source.image_folder + '/' + imgName;
+                return this.image_url + this.source.image_folder + '/' + this.custom.custom_numb + '/' + imgName;
             },
             getDateFormat: function (dateVal) {
                 var date = new Date(dateVal);
@@ -301,6 +341,22 @@ window.onload = function () {
                     payment_date: '',
                     payment_sum: 0.00
                 };
+            },
+            invertSortArticle: function () {
+                var s = this;
+                s.customItemOrder.asc = !s.customItemOrder.asc;
+                s.customItemOrder.field = 'article';
+                s.custom_items = s.customItemOrderByArticle;
+            },
+            invertSortName: function () {
+                var s = this;
+                s.customItemOrder.asc = !s.customItemOrder.asc;
+                s.customItemOrder.field = 'client_name';
+                s.custom_items = s.customItemOrderByName;
+            },
+            getImageName: function(e){
+                var files = e.target.files;
+                this.editCustomItem.item_photo = files[0].name;
             }
 
         },

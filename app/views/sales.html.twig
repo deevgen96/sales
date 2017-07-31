@@ -12,14 +12,12 @@
                     <select v-model="source" class="form-control" id="source_site">
                         <option v-for="srcs in sources" :value="srcs">${ srcs.source_name }</option>
                     </select>
-                    <span>Выбран: ${ source }</span>
                 </div>
                 <div class="form-group col-xs-2">
                     <label for="source_custom">Номер заказа:</label>
                     <select v-model="custom" class="form-control" id="source_custom">
                         <option v-for="cstm in source_customs" :value="cstm">${ cstm.custom_name }</option>
                     </select>
-                    <span>Выбран: ${ custom }</span>
                 </div>
                 <div class="form-group col-xs-2">
                     <label for="choise_client">Клиент:</label>
@@ -31,38 +29,56 @@
                                v-for="fcl in filteredClients">${ fcl.client_name }</a>
                         </div>
                     </div>
-                    <span>Выбран: ${ client }</span>
                 </div>
             </div>
         </div>
         <div class="container-fluid">
             <div class="col-xs-12 col-md-12 col-lg-12 col-sm-12">
                 <ul class="nav nav-tabs" role="tablist">
-                    <li role="presentation"><a href="#sources" aria-controls="sources" role="tab"
-                                               data-toggle="tab">Источники</a></li>
-                    <li role="presentation"><a href="#customs" aria-controls="customs" role="tab"
-                                               data-toggle="tab">Заказы</a></li>
-                    <li role="presentation" class="active"><a href="#custom_items" aria-controls="custom_items"
-                                                              role="tab"
-                                                              data-toggle="tab">Заказанные товары</a></li>
-                    <li role="presentation"><a href="#payments" aria-controls="payments" role="tab" data-toggle="tab">Оплаты</a>
-                    </li>
-                    <li role="presentation"><a href="#clients" aria-controls="clients" role="tab" data-toggle="tab">Клиенты</a>
-                    </li>
+                    <li role="presentation"><a href="#manage_custom" aria-controls="manage_custom" role="tab"
+                                               data-toggle="tab">Формирование заказа</a></li>
+                    <li role="presentation"><a href="#send_custom" aria-controls="send_custom" role="tab"
+                                               data-toggle="tab">Отправка заказа</a></li>
                 </ul>
                 <div class="tab-content">
-                    {% include ("tabs/source.html.twig") %}
-                    {% include ("tabs/custom.html.twig") %}
-                    {% include ("tabs/custom.item.html.twig") %}
-                    {% include ("tabs/payment.html.twig") %}
-                    {% include ("tabs/client.html.twig") %}
+                    <div role="tabpanel" class="tab-pane active" id="manage_custom">
+                        <div class="container-fluid">
+                            <div class="col-xs-12 col-md-12 col-lg-12 col-sm-12">
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li role="presentation"><a href="#sources" aria-controls="sources" role="tab"
+                                                               data-toggle="tab">Источники</a></li>
+                                    <li role="presentation"><a href="#customs" aria-controls="customs" role="tab"
+                                                               data-toggle="tab">Заказы</a></li>
+                                    <li role="presentation" class="active"><a href="#custom_items"
+                                                                              aria-controls="custom_items"
+                                                                              role="tab"
+                                                                              data-toggle="tab">Заказанные товары</a>
+                                    </li>
+                                    <li role="presentation"><a href="#payments" aria-controls="payments" role="tab"
+                                                               data-toggle="tab">Оплаты</a>
+                                    </li>
+                                    <li role="presentation"><a href="#clients" aria-controls="clients" role="tab"
+                                                               data-toggle="tab">Клиенты</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content">
+                                    {% include ("tabs/source.html.twig") %}
+                                    {% include ("tabs/custom.html.twig") %}
+                                    {% include ("tabs/custom.item.html.twig") %}
+                                    {% include ("tabs/payment.html.twig") %}
+                                    {% include ("tabs/client.html.twig") %}
+                                </div>
+                            </div>
+                            {% include ("dialogs/source.html.twig") %}
+                            {% include ("dialogs/custom.html.twig") %}
+                            {% include ("dialogs/custom.item.html.twig") %}
+                            {% include ("dialogs/client.html.twig") %}
+                            {% include ("dialogs/payment.html.twig") %}
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="send_custom"></div>
                 </div>
             </div>
         </div>
-        {% include ("dialogs/source.html.twig") %}
-        {% include ("dialogs/custom.html.twig") %}
-        {% include ("dialogs/custom.item.html.twig") %}
-        {% include ("dialogs/client.html.twig") %}
-        {% include ("dialogs/payment.html.twig") %}
     </div>
 {% endblock app %}
