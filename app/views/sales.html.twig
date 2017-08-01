@@ -41,42 +41,8 @@
                                                data-toggle="tab">Отправка заказа</a></li>
                 </ul>
                 <div class="tab-content">
-                    <div role="tabpanel" class="tab-pane active" id="manage_custom">
-                        <div class="container-fluid">
-                            <div class="col-xs-12 col-md-12 col-lg-12 col-sm-12">
-                                <ul class="nav nav-tabs" role="tablist">
-                                    <li role="presentation"><a href="#sources" aria-controls="sources" role="tab"
-                                                               data-toggle="tab">Источники</a></li>
-                                    <li role="presentation"><a href="#customs" aria-controls="customs" role="tab"
-                                                               data-toggle="tab">Заказы</a></li>
-                                    <li role="presentation" class="active"><a href="#custom_items"
-                                                                              aria-controls="custom_items"
-                                                                              role="tab"
-                                                                              data-toggle="tab">Заказанные товары</a>
-                                    </li>
-                                    <li role="presentation"><a href="#payments" aria-controls="payments" role="tab"
-                                                               data-toggle="tab">Оплаты</a>
-                                    </li>
-                                    <li role="presentation"><a href="#clients" aria-controls="clients" role="tab"
-                                                               data-toggle="tab">Клиенты</a>
-                                    </li>
-                                </ul>
-                                <div class="tab-content">
-                                    {% include ("tabs/source.html.twig") %}
-                                    {% include ("tabs/custom.html.twig") %}
-                                    {% include ("tabs/custom.item.html.twig") %}
-                                    {% include ("tabs/payment.html.twig") %}
-                                    {% include ("tabs/client.html.twig") %}
-                                </div>
-                            </div>
-                            {% include ("dialogs/source.html.twig") %}
-                            {% include ("dialogs/custom.html.twig") %}
-                            {% include ("dialogs/custom.item.html.twig") %}
-                            {% include ("dialogs/client.html.twig") %}
-                            {% include ("dialogs/payment.html.twig") %}
-                        </div>
-                    </div>
-                    <div role="tabpanel" class="tab-pane" id="send_custom"></div>
+                    {% include ("tabs/manage.custom.html.twig") %}
+                    {% include ("tabs/send.custom.html.twig") %}
                 </div>
             </div>
         </div>

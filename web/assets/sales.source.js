@@ -84,24 +84,64 @@ window.onload = function () {
                 let ascDesc = this.customItemOrder.asc ? 1 : -1;
                 return result.sort((a, b) => ascDesc * a.client_name.localeCompare(b.client_name));
             },
-            sortClassArticle: function(){
+            sortClassArticle: function () {
                 return {
                     'fa-sort-amount-asc': this.customItemOrder.asc && this.customItemOrder.field === 'article',
                     'fa-sort-amount-desc': !this.customItemOrder.asc && this.customItemOrder.field === 'article'
                 }
             },
-            sortClassClientName: function(){
+            sortClassClientName: function () {
                 return {
                     'fa-sort-amount-asc': this.customItemOrder.asc && this.customItemOrder.field === 'client_name',
                     'fa-sort-amount-desc': !this.customItemOrder.asc && this.customItemOrder.field === 'client_name'
                 }
             }
             ,
-            declineCustomItem: function(){
+            declineCustomItem: function () {
                 return {
                     'danger': this.customItemOrder.asc && this.customItemOrder.field === 'client_name',
                 }
-            }
+            },
+            make_payment: function () {
+                var s = this;
+                let custom = {};
+                let payment = {};
+
+                s.custom_items.reduce(function (res, value) {
+                    if ((value.decline_before_send == 0) && (value.decline_after_sale == 0)) {
+                        if (!res[value.client_id]) {
+                            res[value.client_id] = {
+                                client_name: value.client_name,
+                                custom_sum: 0.00,
+                                payment_sum: 0.00
+                            };
+                            custom[value.client_id] = (res[value.client_id]);
+                        }
+                        res[value.client_id].custom_sum += parseFloat(value.total);
+                    }
+                    return res;
+                }, {});
+
+                s.payments.reduce(function (res, value) {
+                        if (!res[value.client_id]) {
+                            res[value.client_id] = {
+                                client_id: value.client_id,
+                                payment_sum: 0.00
+                            };
+                            payment[value.client_id] = (res[value.client_id])
+                        }
+                        res[value.client_id].payment_sum += parseFloat(value.payment_sum);
+                    return res;
+                }, {});
+
+                $.each(custom, function(index, value) {
+                    if (payment[index]){
+                        custom[index].payment_sum = payment[index].payment_sum
+                    };
+
+                });
+                return custom;
+            },
         },
 
         filteredAndSortedData() {
@@ -354,7 +394,7 @@ window.onload = function () {
                 s.customItemOrder.field = 'client_name';
                 s.custom_items = s.customItemOrderByName;
             },
-            getImageName: function(e){
+            getImageName: function (e) {
                 var files = e.target.files;
                 this.editCustomItem.item_photo = files[0].name;
             }
