@@ -103,7 +103,7 @@ class SourceControllerProvider implements ControllerProviderInterface
 
         $ctrl->post('/{source_id}/custom/{custom_id}/payment/', function (Request $request, $source_id, $custom_id) use ($app) {
             $payment = $request->request->all();
-            $param = array($payment['payment_id'], $payment['client_id'], $payment['custom_id'], $payment['payment_date'], $payment['payment_sum']);
+            $param = array($payment['payment_id'], (int)$payment['client_id'], (int)$payment['custom_id'], $payment['payment_date'], $payment['payment_sum']);
             $sql = 'call custom_set_payment(?, ?, ?, ?, ?)';
             $post = $app['db']->fetchAll($sql, $param);
             header('Content-Type: application/json');

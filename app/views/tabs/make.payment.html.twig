@@ -1,8 +1,7 @@
 <div role="tabpanel" class="tab-pane" id="make_payment">
     <table class="table">
         <thead>
-        <td class="pointer" @click="invertSortName()">Клиент&nbsp;<i class="fa" :class="sortClassClientName"
-                                                                     aria-hidden="true"></i></td>
+        <td>Клиент</td>
         <td>Заказа</td>
         <td>Оплата</td>
         <td>Остаток</td>
@@ -10,9 +9,9 @@
         <tbody>
         <tr v-for="(mp, index) in make_payment">
             <td>${mp.client_name}</td>
-            <td>${mp.custom_sum}</td>
-            <td>${mp.payment_sum}</td>
-            <td>${mp.custom_sum - mp.payment_sum}</td>
+            <td>${formatPrice(mp.custom_sum)}</td>
+            <td>${formatPrice(mp.payment_sum)}</td>
+            <td>${formatPrice(mp.custom_sum - mp.payment_sum)}</td>
         </tr>
         </tbody>
     </table>

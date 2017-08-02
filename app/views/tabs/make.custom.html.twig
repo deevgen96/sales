@@ -23,8 +23,8 @@
             <td>${itm.item_size}</td>
             <td>${itm.item_count}</td>
             <td>${itm.sex}</td>
-            <td>${itm.sale_price}</td>
-            <td>${itm.total}</td>
+            <td>${formatPrice(itm.sale_price)}</td>
+            <td>${formatPrice(itm.total)}</td>
             <td>
                 <div class="thumbnail thumbnail_size" v-if="itm.item_photo">
                     <image :src="getImageUrl(itm.item_photo)"/>

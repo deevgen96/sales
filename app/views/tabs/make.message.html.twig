@@ -1,0 +1,17 @@
+<div role="tabpanel" class="tab-pane" id="make_message">
+    <table class="table">
+        <thead>
+        <td>Клиент</td>
+        <td>Профиль в О</td>
+        <td>Сообщение</td>
+        </thead>
+        <tbody>
+        <tr v-for="(mp, index) in make_payment">
+            <td>${mp.client_name}</td>
+            <td><a :href="mp.profile_link" target="_blank">${mp.profile_link}</a></td>
+            <td><textarea class="form-control" rows="4" readonly>${mp.client_greeting} ${mp.client_honor}.
+По ${custom.custom_name} (${source.source_name}) осталось оплатить ${formatPrice(mp.custom_sum - mp.payment_sum)} руб.</textarea></td>
+        </tr>
+        </tbody>
+    </table>
+</div>

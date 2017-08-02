@@ -103,50 +103,56 @@ window.onload = function () {
                 }
             },
             make_payment: function () {
-                var s = this;
+                var s = this,
+                result=[];
                 let custom = {};
                 let payment = {};
+                let client = {};
+
+                s.clients.forEach(function (item) {
+                    client[item.client_id] = item;
+                });
 
                 s.custom_items.reduce(function (res, value) {
                     if ((value.decline_before_send == 0) && (value.decline_after_sale == 0)) {
                         if (!res[value.client_id]) {
-                            res[value.client_id] = {
-                                client_name: value.client_name,
-                                custom_sum: 0.00,
-                                payment_sum: 0.00
-                            };
+                            res[value.client_id] = client[value.client_id];
+                            res[value.client_id].custom_sum = 0.00;
+                            res[value.client_id].payment_sum = 0.00;
+
                             custom[value.client_id] = (res[value.client_id]);
                         }
+
                         res[value.client_id].custom_sum += parseFloat(value.total);
                     }
                     return res;
                 }, {});
 
+
                 s.payments.reduce(function (res, value) {
-                        if (!res[value.client_id]) {
-                            res[value.client_id] = {
-                                client_id: value.client_id,
-                                payment_sum: 0.00
-                            };
-                            payment[value.client_id] = (res[value.client_id])
-                        }
-                        res[value.client_id].payment_sum += parseFloat(value.payment_sum);
+                    if (!res[value.client_id]) {
+                        res[value.client_id] = {
+                            client_id: value.client_id,
+                            payment_sum: 0.00
+                        };
+                        payment[value.client_id] = (res[value.client_id])
+                    }
+                    res[value.client_id].payment_sum += parseFloat(value.payment_sum);
                     return res;
                 }, {});
 
-                $.each(custom, function(index, value) {
-                    if (payment[index]){
+                $.each(custom, function (index, value) {
+                    if (payment[index]) {
                         custom[index].payment_sum = payment[index].payment_sum
-                    };
-
+                    }
                 });
-                return custom;
+
+                result = $.map(custom, function(value, index) {
+                    return [value];
+                });
+
+                return result.sort((a, b) => a.client_name.localeCompare(b.client_name));
             },
-        },
-
-        filteredAndSortedData() {
-
-
         },
         methods: {
             getSource: function () {
@@ -251,6 +257,7 @@ window.onload = function () {
                 s = this;
                 source_id = s.source.source_id;
                 custom_id = s.custom.custom_id;
+                console.log(s.editPayment);
                 this.$http.post(s.api_url + '/api/v1/rest/source/' + source_id + '/custom/' + custom_id + '/payment/', s.editPayment).then(function (response) {
                     s.payments = response.data;
                 }).catch(function () {
@@ -397,7 +404,12 @@ window.onload = function () {
             getImageName: function (e) {
                 var files = e.target.files;
                 this.editCustomItem.item_photo = files[0].name;
+            },
+            formatPrice(value) {
+                let val = (value/1).toFixed(2).replace('.', ',')
+                return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
             }
+
 
         },
         created: function () {
