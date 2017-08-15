@@ -23,6 +23,7 @@
         <td>Не подошло</td>
         <td></td>
         <td></td>
+        <td></td>
         </thead>
         <tbody>
         <tr v-for="(itm, index) in custom_items"
@@ -49,6 +50,10 @@
                 <button class="btn btn-default btn-sm" type="button" data-toggle="modal"
                         data-target="#editCustomItem" @click="setCustomItem(index)"><i
                             class="fa fa-pencil" aria-hidden="true"></i></button>
+            </td>
+            <td>
+                <button class="btn btn-default btn-sm" type="button" data-toggle="modal" @click="setCopyCustomItem(index)"><i
+                            class="fa fa-clone" aria-hidden="true"></i></button>
             </td>
             <td>
                 <button class="btn btn-default btn-sm" type="button"

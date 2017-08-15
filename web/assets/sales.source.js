@@ -19,8 +19,10 @@ window.onload = function () {
             client: {'client_id': 0},
             payment: {},
             searchClient: null,
+            searchFormClient: null,
             editClient: {'source_price': 0},
             editCustomItem: {},
+            copyCustomItem: {},
             editSource: {},
             sex: [
                 {'name': 'Женщина'},
@@ -51,6 +53,26 @@ window.onload = function () {
             filteredClients: function () {
                 var client_array = this.clients,
                     searchString = this.searchClient;
+
+                if (!searchString) {
+                    return client_array;
+                }
+
+                searchString = searchString.trim().toLowerCase();
+
+                client_array = client_array.filter(function (item) {
+                    if (item.client_name.toLowerCase().indexOf(searchString) !== -1) {
+                        return item;
+                    }
+                })
+
+                // Возвращает массив с отфильтрованными данными.
+                return client_array;
+            },
+            // Вычисленное свойство, которое содержит только тех клиентов, которые соответствуют searchClient.
+            filteredFormClients: function () {
+                var client_array = this.clients,
+                    searchString = this.searchFormClient;
 
                 if (!searchString) {
                     return client_array;
@@ -315,8 +337,19 @@ window.onload = function () {
                 this.client = client;
                 this.searchClient = client.client_name;
             },
+            selectFormClient: function (client) {
+                this.searchFormClient = client.client_name;
+                this.copyCustomItem.client_id = client.client_id;
+                this.copyCustomItem.client_name = client.client_name;
+            },
             clearSearchClient: function () {
                 this.client = {'client_id': 0};
+            },
+            clearFormSearchClient: function () {
+                this.copyCustomItem.client_id = 0;
+                this.copyCustomItem.client_name = '';
+                this.searchFormClient = '';
+                console.log(this.copyCustomItem);
             },
             setEditClient: function (index) {
                 this.editClient = this.clients[index];
@@ -339,6 +372,17 @@ window.onload = function () {
             },
             setCustomItem: function (index) {
                 this.editCustomItem = this.custom_items[index];
+            },
+            setCopyCustomItem: function (index) {
+                s = this;
+                $copyCustomItem = s.custom_items[index];
+                $copyCustomItem.log_id = 0;
+                $custom_id = $copyCustomItem.custom_id;
+                this.$http.post(s.api_url + '/api/v1/rest/source/custom/' + $custom_id + '/item/', $copyCustomItem).then(function (response) {
+                    s.custom_items = response.data;
+                }).catch(function () {
+                    console.log('Ошибка запроса данных');
+                });
             },
             setCustomItemDefault: function () {
                 this.editCustomItem = {

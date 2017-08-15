@@ -23,7 +23,7 @@
                     <label for="choise_client">Клиент:</label>
                     <input id="choise_client" class="form-control" placeholder="Клиент" @input="clearSearchClient()"
                            v-model="searchClient">
-                    <div v-if="(searchClient && !client.client_name)">
+                    <div v-if="(searchClient && !client.client_name)" class="client_list">
                         <div class="col-xs-12 list-group">
                             <a href="#" @click="selectClient(fcl)" class="list-group-item"
                                v-for="fcl in filteredClients">${ fcl.client_name }</a>

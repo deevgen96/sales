@@ -5,3 +5,8 @@
 .thumbnail_size {
     max-width: 300px;
 }
+
+.client_list {
+    position: absolute;
+    z-index: 1000;
+}
