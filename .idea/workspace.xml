@@ -5,10 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f0b8b703-1441-45f7-9230-8ed8c59ca59a" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/sales.html.twig" afterPath="$PROJECT_DIR$/app/views/sales.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/tabs/custom.item.html.twig" afterPath="$PROJECT_DIR$/app/views/tabs/custom.item.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/sales.css" afterPath="$PROJECT_DIR$/css/sales.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/dialogs/custom.item.html.twig" afterPath="$PROJECT_DIR$/app/views/dialogs/custom.item.html.twig" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/assets/sales.source.js" afterPath="$PROJECT_DIR$/web/assets/sales.source.js" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -27,8 +24,18 @@
       <file leaf-file-name="custom.item.html.twig" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/views/tabs/custom.item.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="469">
-              <caret line="55" column="80" lean-forward="true" selection-start-line="55" selection-start-column="80" selection-end-line="55" selection-end-column="80" />
+            <state relative-caret-position="384">
+              <caret line="50" column="75" lean-forward="false" selection-start-line="50" selection-start-column="62" selection-end-line="50" selection-end-column="75" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="custom.item.html.twig" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/views/dialogs/custom.item.html.twig">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="527">
+              <caret line="31" column="0" lean-forward="false" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -37,78 +44,18 @@
       <file leaf-file-name="sales.html.twig" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/views/sales.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="197">
-              <caret line="23" column="115" lean-forward="false" selection-start-line="23" selection-start-column="88" selection-end-line="23" selection-end-column="115" />
+            <state relative-caret-position="350">
+              <caret line="23" column="115" lean-forward="true" selection-start-line="23" selection-start-column="88" selection-end-line="23" selection-end-column="115" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="manage.custom.html.twig" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/tabs/manage.custom.html.twig">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="561">
-              <caret line="33" column="0" lean-forward="false" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="make.payment.html.twig" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/tabs/make.payment.html.twig">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" column="23" lean-forward="false" selection-start-line="4" selection-start-column="23" selection-end-line="4" selection-end-column="23" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="custom.item.html.twig" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/dialogs/custom.item.html.twig">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="37" column="31" lean-forward="false" selection-start-line="37" selection-start-column="31" selection-end-line="37" selection-end-column="31" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="sales.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/css/sales.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="12" lean-forward="false" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="12" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="make.message.html.twig" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/tabs/make.message.html.twig">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="make.custom.html.twig" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/tabs/make.custom.html.twig">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="18" column="76" lean-forward="false" selection-start-line="18" selection-start-column="76" selection-end-line="18" selection-end-column="76" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="sales.source.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="sales.source.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/assets/sales.source.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="339">
-              <caret line="376" column="25" lean-forward="true" selection-start-line="376" selection-start-column="25" selection-end-line="376" selection-end-column="25" />
+            <state relative-caret-position="4776">
+              <caret line="344" column="44" lean-forward="false" selection-start-line="344" selection-start-column="44" selection-end-line="344" selection-end-column="44" />
               <folding />
             </state>
           </provider>
@@ -127,9 +74,7 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>editItem</find>
       <find>setEditClientDefault</find>
-      <find>editCustomItem</find>
       <find>custom_numb</find>
       <find>Custom</find>
       <find>setCus</find>
@@ -144,19 +89,21 @@
       <find>:class</find>
       <find>getIma</find>
       <find>conso</find>
-      <find>editCustom</find>
       <find>payment</find>
       <find>setP</find>
       <find>set</find>
-      <find>setCustomItem</find>
       <find>copyCustomItem</find>
       <find>selectCli</find>
       <find>clearSearchClient</find>
-      <find>make_payment</find>
       <find>setCopyCustomItem</find>
       <find>clear</find>
-      <find>clearFormSearchClient</find>
       <find>copy</find>
+      <find>editCustom</find>
+      <find>editCustomItem</find>
+      <find>setCustomItem</find>
+      <find>make_payment</find>
+      <find>clearFormSearchClient</find>
+      <find>selectFormClient</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -186,7 +133,6 @@
         <option value="$PROJECT_DIR$/src/API/v1/REST/Controller/CustomControllerProvider.php" />
         <option value="$PROJECT_DIR$/app/views/dialogs/custom.html.twig" />
         <option value="$PROJECT_DIR$/app/views/tabs/custom.html.twig" />
-        <option value="$PROJECT_DIR$/app/views/dialogs/custom.item.html.twig" />
         <option value="$PROJECT_DIR$/app/views/tabs/send.custom.item.html.twig" />
         <option value="$PROJECT_DIR$/app/views/base.html.twig" />
         <option value="$PROJECT_DIR$/src/API/v1/REST/Controller/SourceControllerProvider.php" />
@@ -200,6 +146,7 @@
         <option value="$PROJECT_DIR$/app/views/tabs/custom.item.html.twig" />
         <option value="$PROJECT_DIR$/app/views/tabs/manage.custom.html.twig" />
         <option value="$PROJECT_DIR$/web/assets/sales.source.js" />
+        <option value="$PROJECT_DIR$/app/views/dialogs/custom.item.html.twig" />
       </list>
     </option>
   </component>
@@ -498,15 +445,15 @@
       <workItem from="1501513697738" duration="10199000" />
       <workItem from="1501602949953" duration="7056000" />
       <workItem from="1501689408743" duration="4145000" />
-      <workItem from="1502812256186" duration="945000" />
+      <workItem from="1502812256186" duration="2636000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="117017000" />
+    <option name="totallyTimeSpent" value="118708000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1616" height="876" extended-state="0" />
+    <frame x="-8" y="-8" width="1616" height="876" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.08" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -866,50 +813,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/sales.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="197">
-          <caret line="23" column="115" lean-forward="false" selection-start-line="23" selection-start-column="88" selection-end-line="23" selection-end-column="115" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/tabs/make.custom.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="76" lean-forward="false" selection-start-line="18" selection-start-column="76" selection-end-line="18" selection-end-column="76" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/css/sales.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
           <caret line="8" column="12" lean-forward="false" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/tabs/make.message.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/dialogs/custom.item.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="37" column="31" lean-forward="false" selection-start-line="37" selection-start-column="31" selection-end-line="37" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/tabs/make.payment.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="23" lean-forward="false" selection-start-line="4" selection-start-column="23" selection-end-line="4" selection-end-column="23" />
           <folding />
         </state>
       </provider>
@@ -922,18 +829,58 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/tabs/make.payment.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="23" lean-forward="false" selection-start-line="4" selection-start-column="23" selection-end-line="4" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/tabs/make.message.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/tabs/make.custom.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="76" lean-forward="false" selection-start-line="18" selection-start-column="76" selection-end-line="18" selection-end-column="76" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/views/tabs/custom.item.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="469">
-          <caret line="55" column="80" lean-forward="true" selection-start-line="55" selection-start-column="80" selection-end-line="55" selection-end-column="80" />
+        <state relative-caret-position="384">
+          <caret line="50" column="75" lean-forward="false" selection-start-line="50" selection-start-column="62" selection-end-line="50" selection-end-column="75" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/sales.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="350">
+          <caret line="23" column="115" lean-forward="true" selection-start-line="23" selection-start-column="88" selection-end-line="23" selection-end-column="115" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web/assets/sales.source.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="339">
-          <caret line="376" column="25" lean-forward="true" selection-start-line="376" selection-start-column="25" selection-end-line="376" selection-end-column="25" />
+        <state relative-caret-position="4776">
+          <caret line="344" column="44" lean-forward="false" selection-start-line="344" selection-start-column="44" selection-end-line="344" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/dialogs/custom.item.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="527">
+          <caret line="31" column="0" lean-forward="false" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
           <folding />
         </state>
       </provider>

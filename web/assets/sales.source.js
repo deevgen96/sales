@@ -126,7 +126,7 @@ window.onload = function () {
             },
             make_payment: function () {
                 var s = this,
-                result=[];
+                    result = [];
                 let custom = {};
                 let payment = {};
                 let client = {};
@@ -137,15 +137,17 @@ window.onload = function () {
 
                 s.custom_items.reduce(function (res, value) {
                     if ((value.decline_before_send == 0) && (value.decline_after_sale == 0)) {
-                        if (!res[value.client_id]) {
-                            res[value.client_id] = client[value.client_id];
-                            res[value.client_id].custom_sum = 0.00;
-                            res[value.client_id].payment_sum = 0.00;
+                        if (value.client_id) {
+                            if (!res[value.client_id]) {
+                                res[value.client_id] = client[value.client_id];
+                                res[value.client_id].custom_sum = 0.00;
+                                res[value.client_id].payment_sum = 0.00;
 
-                            custom[value.client_id] = (res[value.client_id]);
+                                custom[value.client_id] = (res[value.client_id]);
+                            }
+
+                            res[value.client_id].custom_sum += parseFloat(value.total);
                         }
-
-                        res[value.client_id].custom_sum += parseFloat(value.total);
                     }
                     return res;
                 }, {});
@@ -169,7 +171,7 @@ window.onload = function () {
                     }
                 });
 
-                result = $.map(custom, function(value, index) {
+                result = $.map(custom, function (value, index) {
                     return [value];
                 });
 
@@ -338,18 +340,17 @@ window.onload = function () {
                 this.searchClient = client.client_name;
             },
             selectFormClient: function (client) {
+                this.editCustomItem.client_id = client.client_id;
+                this.editCustomItem.client_name = client.client_name;
                 this.searchFormClient = client.client_name;
-                this.copyCustomItem.client_id = client.client_id;
-                this.copyCustomItem.client_name = client.client_name;
             },
             clearSearchClient: function () {
                 this.client = {'client_id': 0};
             },
             clearFormSearchClient: function () {
-                this.copyCustomItem.client_id = 0;
-                this.copyCustomItem.client_name = '';
+                this.editCustomItem.client_id = 0;
+                this.editCustomItem.client_name = '';
                 this.searchFormClient = '';
-                console.log(this.copyCustomItem);
             },
             setEditClient: function (index) {
                 this.editClient = this.clients[index];
@@ -372,6 +373,7 @@ window.onload = function () {
             },
             setCustomItem: function (index) {
                 this.editCustomItem = this.custom_items[index];
+                this.searchFormClient = this.custom_items[index].client_name;
             },
             setCopyCustomItem: function (index) {
                 s = this;
@@ -400,7 +402,8 @@ window.onload = function () {
                     sex: '',
                     source_price: null,
                     sale_price: null,
-                }
+                };
+                this.searchFormClient = this.client.client_name;
             },
             setEditCustomDefault: function () {
                 this.editCustom = {
@@ -450,7 +453,7 @@ window.onload = function () {
                 this.editCustomItem.item_photo = files[0].name;
             },
             formatPrice(value) {
-                let val = (value/1).toFixed(2).replace('.', ',')
+                let val = (value / 1).toFixed(2).replace('.', ',')
                 return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
             }
 
