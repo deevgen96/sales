@@ -152,16 +152,17 @@ window.onload = function () {
                     return res;
                 }, {});
 
-
                 s.payments.reduce(function (res, value) {
-                    if (!res[value.client_id]) {
-                        res[value.client_id] = {
-                            client_id: value.client_id,
-                            payment_sum: 0.00
-                        };
-                        payment[value.client_id] = (res[value.client_id])
+                    if (value.client_id) {
+                        if (!res[value.client_id]) {
+                            res[value.client_id] = {
+                                client_id: value.client_id,
+                                payment_sum: 0.00
+                            };
+                            payment[value.client_id] = (res[value.client_id])
+                        }
+                        res[value.client_id].payment_sum += parseFloat(value.payment_sum);
                     }
-                    res[value.client_id].payment_sum += parseFloat(value.payment_sum);
                     return res;
                 }, {});
 
@@ -281,7 +282,6 @@ window.onload = function () {
                 s = this;
                 source_id = s.source.source_id;
                 custom_id = s.custom.custom_id;
-                console.log(s.editPayment);
                 this.$http.post(s.api_url + '/api/v1/rest/source/' + source_id + '/custom/' + custom_id + '/payment/', s.editPayment).then(function (response) {
                     s.payments = response.data;
                 }).catch(function () {
@@ -311,7 +311,6 @@ window.onload = function () {
                 s = this;
                 log_id = s.custom_items[index].log_id;
                 custom_id = s.custom_items[index].custom_id;
-                ;
                 this.$http.delete(s.api_url + '/api/v1/rest/source/custom/' + custom_id + '/item/' + log_id + '/delete/').then(function (response) {
                     s.custom_items = response.data;
                 }).catch(function () {
@@ -321,11 +320,9 @@ window.onload = function () {
 
             deletePayment: function (index) {
                 s = this;
-                payment_id = s.payment[index].payment_id;
+                payment_id = s.payments[index].payment_id;
                 custom_id = s.custom.custom_id;
-                source_id = s.source.source_id;
-                ;
-                this.$http.delete(s.api_url + '/api/v1/rest/source/' + source_id + '/custom/' + $custom_id + '/payment/' + payment_id).then(function (response) {
+                this.$http.delete(s.api_url + '/api/v1/rest/source/custom/' + custom_id + '/payment/' + payment_id + '/delete').then(function (response) {
                     s.payments = response.data;
                 }).catch(function () {
                     console.log('Ошибка запроса данных');
@@ -333,7 +330,9 @@ window.onload = function () {
             },
             setCustomItemMulti: function () {
                 this.setCustomItemOnce();
-                this.setEditClientDefault();
+                this.setCustomItemDefault();
+                console.log(this.searchFormClient);
+                console.log(this.editCustomItem);
             },
             selectClient: function (client) {
                 this.client = client;
@@ -342,6 +341,11 @@ window.onload = function () {
             selectFormClient: function (client) {
                 this.editCustomItem.client_id = client.client_id;
                 this.editCustomItem.client_name = client.client_name;
+                this.searchFormClient = client.client_name;
+            },
+            selectPaymentFormClient: function (client) {
+                this.editPayment.client_id = client.client_id;
+                this.editPayment.client_name = client.client_name;
                 this.searchFormClient = client.client_name;
             },
             clearSearchClient: function () {
@@ -361,16 +365,6 @@ window.onload = function () {
             setEditSourceDefault: function () {
                 this.editSource = {source_id: 0, source_name: '', source_url: '', image_url: ''};
             },
-            setEditClientDefault: function () {
-                this.editClient = {
-                    client_id: 0,
-                    client_name: '',
-                    profile_link: '',
-                    region: '',
-                    client_honor: '',
-                    client_greeting: 'Здравствуйте'
-                };
-            },
             setCustomItem: function (index) {
                 this.editCustomItem = this.custom_items[index];
                 this.searchFormClient = this.custom_items[index].client_name;
@@ -386,35 +380,6 @@ window.onload = function () {
                     console.log('Ошибка запроса данных');
                 });
             },
-            setCustomItemDefault: function () {
-                this.editCustomItem = {
-                    log_id: 0,
-                    client_id: this.client.client_id,
-                    client_name: this.client.client_name,
-                    custom_id: this.custom.custom_id,
-                    custom_name: this.custom.custom_name,
-                    item_id: 0,
-                    article: '',
-                    item_link: '',
-                    item_size: '',
-                    item_count: 1,
-                    item_photo: '',
-                    sex: '',
-                    source_price: null,
-                    sale_price: null,
-                };
-                this.searchFormClient = this.client.client_name;
-            },
-            setEditCustomDefault: function () {
-                this.editCustom = {
-                    custom_id: 0,
-                    source_id: this.source.source_id,
-                    custom_numb: null,
-                    custom_name: 'Заказ №',
-                    send_date: null,
-                    delivery_date: null
-                };
-            },
             editSourceCustom: function (index) {
                 this.editCustom = this.source_customs[index];
             },
@@ -427,15 +392,62 @@ window.onload = function () {
                 if (date)
                     return (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + '.' + ((date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)) + '.' + date.getFullYear();
             },
+            setEditPayment: function (index) {
+                s = this;
+                s.editPayment = s.payments[index];
+                s.searchFormClient = s.editPayment.client_name;
+            },
+
+            //set new items
+            //custom_item
+            setCustomItemDefault: function () {
+                this.editCustomItem.log_id = 0;
+                this.editCustomItem.custom_id = this.custom.custom_id;
+                this.editCustomItem.custom_name = this.custom.custom_name;
+                this.editCustomItem.item_id= 0;
+                this.editCustomItem.article = '';
+                this.editCustomItem.item_link = '';
+                this.editCustomItem.item_size = '';
+                this.editCustomItem.item_count = 1;
+                this.editCustomItem.item_photo = '';
+                this.editCustomItem.sex = '';
+                this.editCustomItem.source_price = null;
+                this.editCustomItem.sale_price = null;
+            },
+            //custom
+            setEditCustomDefault: function () {
+                this.editCustom = {
+                    custom_id: 0,
+                    source_id: this.source.source_id,
+                    custom_numb: null,
+                    custom_name: 'Заказ №',
+                    send_date: null,
+                    delivery_date: null
+                };
+            },
+            //payment
             setPaymentDefault: function () {
                 this.editPayment = {
                     payment_id: 0,
                     custom_id: this.custom.custom_id,
-                    client_id: this.client.client_id,
+                    client_id: this.payment.client_id,
                     payment_date: '',
                     payment_sum: 0.00
                 };
+                this.searchFormClient = this.client.client_name;
             },
+            //client
+            setEditClientDefault: function () {
+                this.editClient = {
+                    client_id: 0,
+                    client_name: '',
+                    profile_link: '',
+                    region: '',
+                    client_honor: '',
+                    client_greeting: 'Здравствуйте'
+                };
+            },
+            //sorting articles
             invertSortArticle: function () {
                 var s = this;
                 s.customItemOrder.asc = !s.customItemOrder.asc;

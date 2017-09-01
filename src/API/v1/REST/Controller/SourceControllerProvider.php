@@ -110,9 +110,9 @@ class SourceControllerProvider implements ControllerProviderInterface
             return new Response(json_encode($post), 200, ['Content-Type' => 'application/json']);
         });
 
-        $ctrl->delete('/{source_id}/custom/{custom_id}/payment/{payment_id}', function ($source_id, $custom_id, $payment_id) use ($app) {
-            $param = array((int)$payment_id);
-            $sql = 'call custom_remove_payment(?)';
+        $ctrl->delete('/custom/{custom_id}/payment/{payment_id}/delete', function ($custom_id, $payment_id) use ($app) {
+            $param = array((int)$custom_id, (int)$payment_id);
+            $sql = 'call custom_remove_payment(?,?)';
             $post = $app['db']->fetchAll($sql, $param);
             header('Content-Type: application/json');
             return new Response(json_encode($post), 200, ['Content-Type' => 'application/json']);

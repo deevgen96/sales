@@ -4,7 +4,7 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Изменение платежа по: ${custom.custom_name} , Клиент: ${client.client_name}</h4>
+                <h4 class="modal-title" id="myModalLabel">Изменение платежа по: ${custom.custom_name} , Клиент: ${editCustomItem.client_name}</h4>
             </div>
             <div class="modal-body">
                 <form class="form-horizontal">
@@ -13,6 +13,19 @@
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="inputId"
                                    v-model="editPayment.payment_id" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputClient" class="col-sm-2 control-label">Клиент</label>
+                        <div class="col-sm-10">
+                            <input id="inputClient" class="form-control" placeholder="Клиент"
+                                   v-model="searchFormClient" autocomplete="off">
+                            <div v-if="(searchFormClient && editPayment.client_name !== searchFormClient)" class="client_list">
+                                <div class="col-xs-12 list-group">
+                                    <a href="#" @click="selectPaymentFormClient(cl)" class="list-group-item"
+                                       v-for="cl in filteredFormClients">${ cl.client_name }</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">
