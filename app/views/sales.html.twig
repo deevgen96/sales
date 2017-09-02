@@ -30,6 +30,13 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-xs-6 text-right">
+                    <button @click="showTotal = !showTotal" title="Показать/скрыть итоги"><i class="fa"
+                                                               :class="{'fa-eye-slash':showTotal == 1, 'fa-eye':showTotal == 0}"
+                                                               aria-hidden="true"></i></button>
+                    <h4 v-if="showTotal">Заказ: ${formatPrice(total.source_total)}</h4>
+                    <h4 v-if="showTotal">Продажа: ${formatPrice(total.sale_total)}</h4>
+                </div>
             </div>
         </div>
         <div class="container-fluid">

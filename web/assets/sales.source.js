@@ -38,6 +38,7 @@ window.onload = function () {
                 'asc': 1,
                 'field': ''
             },
+            showTotal: 1,
         },
         watch: {
             source: function () {
@@ -177,6 +178,27 @@ window.onload = function () {
                 });
 
                 return result.sort((a, b) => a.client_name.localeCompare(b.client_name));
+            },
+            total: function () {
+                var s = this,
+                    result = [];
+                if (s.custom_items.length > 0) {
+                    return s.custom_items.reduce(function (res, value) {
+                        if ((value.decline_before_send == 0) && (value.decline_after_sale == 0)) {
+                            if (!res['source_total']) {
+                                res['source_total'] = 0.00;
+                                res['sale_total'] = 0.00;
+                            }
+                            res['source_total'] += parseFloat(value.source_price * value.item_count);
+                            res['sale_total'] += parseFloat(value.total);
+                        }
+                        return res;
+                    }, {});
+                }
+
+                result['source_total'] = 0;
+                result['sale_total'] = 0;
+                return result;
             },
         },
         methods: {
@@ -404,7 +426,7 @@ window.onload = function () {
                 this.editCustomItem.log_id = 0;
                 this.editCustomItem.custom_id = this.custom.custom_id;
                 this.editCustomItem.custom_name = this.custom.custom_name;
-                this.editCustomItem.item_id= 0;
+                this.editCustomItem.item_id = 0;
                 this.editCustomItem.article = '';
                 this.editCustomItem.item_link = '';
                 this.editCustomItem.item_size = '';
