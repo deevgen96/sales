@@ -50,17 +50,17 @@
             </td>
             <td>
                 <button class="btn btn-default btn-sm" type="button" data-toggle="modal"
-                        data-target="#editCustomItem" @click="setCustomItem(index)"><i
+                        data-target="#editCustomItem" @click="setCustomItem(index)" ><i
                             class="fa fa-pencil" aria-hidden="true"></i></button>
             </td>
             <td>
                 <button class="btn btn-default btn-sm" type="button" data-toggle="modal"
-                        @click="setCopyCustomItem(index)"><i
+                        @click="setCopyCustomItem(index)" v-if="checkCustomSending(itm.custom_id)"><i
                             class="fa fa-clone" aria-hidden="true"></i></button>
             </td>
             <td>
                 <button class="btn btn-default btn-sm" type="button"
-                        @click="deleteCustomItem(index)"><i
+                        @click="deleteCustomItem(index)" v-if="checkCustomSending(itm.custom_id)"><i
                             class="fa fa-trash" aria-hidden="true"></i></button>
             </td>
         </tr>

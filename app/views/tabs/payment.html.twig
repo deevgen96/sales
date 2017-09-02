@@ -20,8 +20,8 @@
             <td>${pmt.payment_id}</td>
             <td>${pmt.client_name}</td>
             <td>${pmt.custom_name}</td>
-            <td>${pmt.payment_date}</td>
-            <td>${pmt.payment_sum}</td>
+            <td>${getDateFormat(pmt.payment_date)}</td>
+            <td>${formatPrice(pmt.payment_sum)}</td>
             <td>
                 <button class="btn btn-default btn-sm" type="button" data-toggle="modal"
                         data-target="#editPayment" @click="setEditPayment(index)"><i

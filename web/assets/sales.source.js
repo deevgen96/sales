@@ -293,6 +293,10 @@ window.onload = function () {
             setSourceCustom: function () {
                 s = this;
                 $source_id = s.editCustom.source_id;
+                if (s.editCustom.send_date == "")
+                    s.editCustom.send_date = null;
+                if (s.editCustom.delivery_date == "")
+                    s.editCustom.delivery_date = null;
                 this.$http.post(s.api_url + '/api/v1/rest/source/' + $source_id + '/custom/post/', s.editCustom).then(function (response) {
                     s.source_customs = response.data;
                 }).catch(function () {
@@ -405,15 +409,7 @@ window.onload = function () {
             editSourceCustom: function (index) {
                 this.editCustom = this.source_customs[index];
             },
-            getImageUrl: function (imgName) {
-                return this.image_url + this.source.image_folder + '/' + this.custom.custom_numb + '/' + imgName;
-            },
-            getDateFormat: function (dateVal) {
-                var date = new Date(dateVal);
-                console.log(dateVal);
-                if (date)
-                    return (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + '.' + ((date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)) + '.' + date.getFullYear();
-            },
+
             setEditPayment: function (index) {
                 s = this;
                 s.editPayment = s.payments[index];
@@ -482,6 +478,7 @@ window.onload = function () {
                 s.customItemOrder.field = 'client_name';
                 s.custom_items = s.customItemOrderByName;
             },
+            //helpers
             getImageName: function (e) {
                 var files = e.target.files;
                 this.editCustomItem.item_photo = files[0].name;
@@ -489,8 +486,25 @@ window.onload = function () {
             formatPrice(value) {
                 let val = (value / 1).toFixed(2).replace('.', ',')
                 return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+            },
+            getImageUrl: function (imgName) {
+                return this.image_url + this.source.image_folder + '/' + this.custom.custom_numb + '/' + imgName;
+            },
+            getDateFormat: function (dateVal) {
+                if (dateVal) {
+                    var date = new Date(dateVal);
+                    day = date.getDate();
+                    mon = date.getMonth() + 1;
+                    year = date.getFullYear();
+                    if (date)
+                        return (day < 10 ? '0' + day : day) + '.' + (mon < 10 ? '0' + mon : mon) + '.' + year;
+                }
+            },
+            checkCustomSending: function (custom_id) {
+                if (this.custom.send_date)
+                    return false;
+                return true;
             }
-
 
         },
         created: function () {

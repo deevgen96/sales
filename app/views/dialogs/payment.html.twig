@@ -31,7 +31,7 @@
                     <div class="form-group">
                         <label for="inputDate" class="col-sm-2 control-label">Дата</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="inputDate" placeholder="Дата"
+                            <input type="date" class="form-control" id="inputDate" placeholder="Дата"
                                    v-model="editPayment.payment_date">
                         </div>
                     </div>
@@ -39,7 +39,7 @@
                         <label for="inputSum" class="col-sm-2 control-label">Сумма</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="inputSum"
-                                   placeholder="Ссылка" v-model="editPayment.payment_sum">
+                                   placeholder="Ссылка" v-model="formatPrice(editPayment.payment_sum)">
                         </div>
                     </div>
                 </form>

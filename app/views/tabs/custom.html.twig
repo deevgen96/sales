@@ -18,8 +18,8 @@
             <td>${cst.custom_id}</td>
             <td>${cst.custom_numb}</td>
             <td>${cst.custom_name}</td>
-            <td>${cst.send_date}</td>
-            <td>${cst.delivery_date}</td>
+            <td>${getDateFormat(cst.send_date)}</td>
+            <td>${getDateFormat(cst.delivery_date)}</td>
             <td style="width:100px">
                 <button class="btn btn-default btn-sm" type="button" data-toggle="modal"
                         data-target="#editCustom" @click="editSourceCustom(index)"><i

@@ -80,7 +80,7 @@ class SourceControllerProvider implements ControllerProviderInterface
 
         $ctrl->post('/{source_id}/custom/post/', function (Request $request, $source_id) use ($app) {
             $custom = $request->request->all();
-            $params = array($source_id, $custom['custom_id'], $custom['custom_numb'], $custom['custom_name'], null, null);
+            $params = array($source_id, $custom['custom_id'], $custom['custom_numb'], $custom['custom_name'], $custom['send_date'], $custom['delivery_date']);
             $sql = 'call custom_set(?, ?, ?, ?, ?, ?)';
             $post = $app['db']->fetchAll($sql, $params);
             return new Response(json_encode($post), 200, ['Content-Type' => 'application/json']);
