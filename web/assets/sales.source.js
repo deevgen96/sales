@@ -202,6 +202,7 @@ window.onload = function () {
             },
         },
         methods: {
+            //get data
             getSource: function () {
                 s = this;
                 this.$http.get(s.api_url + '/api/v1/rest/source/').then(function (response) {
@@ -254,7 +255,6 @@ window.onload = function () {
                 });
 
             },
-
             getPayment: function (custom_id) {
                 s = this;
                 source_id = s.source.source_id;
@@ -265,12 +265,15 @@ window.onload = function () {
                 });
 
             },
+
+            //set data
             setClient: function () {
                 s = this;
                 this.$http.post(s.api_url + '/api/v1/rest/client/', s.editClient).then(function (response) {
                     s.clients = response.data;
                 }).catch(function () {
                     console.log('Ошибка запроса данных');
+                    s.getClient();
                 });
             },
             setCustomItemOnce: function () {
@@ -280,6 +283,7 @@ window.onload = function () {
                     s.custom_items = response.data;
                 }).catch(function () {
                     console.log('Ошибка запроса данных');
+                    s.getCustomItem($custom_id);
                 });
             },
             setSource: function () {
@@ -288,6 +292,7 @@ window.onload = function () {
                     s.sources = response.data;
                 }).catch(function () {
                     console.log('Ошибка запроса данных');
+                    s.getSource();
                 });
             },
             setSourceCustom: function () {
@@ -301,9 +306,9 @@ window.onload = function () {
                     s.source_customs = response.data;
                 }).catch(function () {
                     console.log('Ошибка запроса данных');
+                    s.getSourceCustom($source_id);
                 });
             },
-
             setPayment: function () {
                 s = this;
                 source_id = s.source.source_id;
@@ -312,8 +317,22 @@ window.onload = function () {
                     s.payments = response.data;
                 }).catch(function () {
                     console.log('Ошибка запроса данных');
+                    s.getPayment(custom_id);
                 });
             },
+            setCopyCustomItem: function (index) {
+                s = this;
+                $copyCustomItem = s.custom_items[index];
+                $copyCustomItem.log_id = 0;
+                $custom_id = $copyCustomItem.custom_id;
+                this.$http.post(s.api_url + '/api/v1/rest/source/custom/' + $custom_id + '/item/', $copyCustomItem).then(function (response) {
+                    s.custom_items = response.data;
+                }).catch(function () {
+                    console.log('Ошибка запроса данных');
+                    s.getCustomItem($custom_id);
+                });
+            },
+            //delete data
             deleteSourceCustom: function (index) {
                 s = this;
                 $custom_id = s.source_customs[index].custom_id;
@@ -322,6 +341,7 @@ window.onload = function () {
                     s.source_customs = response.data;
                 }).catch(function () {
                     console.log('Ошибка запроса данных');
+                    s.getSourceCustom($source_id);
                 });
             },
             deleteSource: function (index) {
@@ -331,6 +351,7 @@ window.onload = function () {
                     s.sources = response.data;
                 }).catch(function () {
                     console.log('Ошибка запроса данных');
+                    s.getSource();
                 });
             },
             deleteCustomItem: function (index) {
@@ -341,9 +362,9 @@ window.onload = function () {
                     s.custom_items = response.data;
                 }).catch(function () {
                     console.log('Ошибка запроса данных');
+                    s.getCustomItem(custom_id);
                 });
             },
-
             deletePayment: function (index) {
                 s = this;
                 payment_id = s.payments[index].payment_id;
@@ -352,13 +373,13 @@ window.onload = function () {
                     s.payments = response.data;
                 }).catch(function () {
                     console.log('Ошибка запроса данных');
+                    s.getPayment(custom_id);
                 });
             },
+            //helpers for processing data
             setCustomItemMulti: function () {
                 this.setCustomItemOnce();
                 this.setCustomItemDefault();
-                console.log(this.searchFormClient);
-                console.log(this.editCustomItem);
             },
             selectClient: function (client) {
                 this.client = client;
@@ -388,34 +409,18 @@ window.onload = function () {
             setEditSource: function (index) {
                 this.editSource = this.sources[index];
             },
-            setEditSourceDefault: function () {
-                this.editSource = {source_id: 0, source_name: '', source_url: '', image_url: ''};
-            },
             setCustomItem: function (index) {
                 this.editCustomItem = this.custom_items[index];
                 this.searchFormClient = this.custom_items[index].client_name;
             },
-            setCopyCustomItem: function (index) {
-                s = this;
-                $copyCustomItem = s.custom_items[index];
-                $copyCustomItem.log_id = 0;
-                $custom_id = $copyCustomItem.custom_id;
-                this.$http.post(s.api_url + '/api/v1/rest/source/custom/' + $custom_id + '/item/', $copyCustomItem).then(function (response) {
-                    s.custom_items = response.data;
-                }).catch(function () {
-                    console.log('Ошибка запроса данных');
-                });
-            },
             editSourceCustom: function (index) {
                 this.editCustom = this.source_customs[index];
             },
-
             setEditPayment: function (index) {
                 s = this;
                 s.editPayment = s.payments[index];
                 s.searchFormClient = s.editPayment.client_name;
             },
-
             //set new items
             //custom_item
             setCustomItemDefault: function () {
@@ -431,6 +436,8 @@ window.onload = function () {
                 this.editCustomItem.sex = '';
                 this.editCustomItem.source_price = null;
                 this.editCustomItem.sale_price = null;
+                this.editCustomItem.decline_before_send = 0;
+                this.editCustomItem.decline_after_sale = 0;
             },
             //custom
             setEditCustomDefault: function () {
@@ -464,6 +471,10 @@ window.onload = function () {
                     client_honor: '',
                     client_greeting: 'Здравствуйте'
                 };
+            },
+            //source
+            setEditSourceDefault: function () {
+                this.editSource = {source_id: 0, source_name: '', source_url: '', image_url: ''};
             },
             //sorting articles
             invertSortArticle: function () {
@@ -504,8 +515,14 @@ window.onload = function () {
                 if (this.custom.send_date)
                     return false;
                 return true;
-            }
-
+            },
+            //customs
+            goToUp: function(){
+                window.scrollTo(0, 0);
+            },
+            goToDown: function(){
+                window.scrollTo(0, document.body.scrollHeight);
+            },
         },
         created: function () {
             this.getSource();

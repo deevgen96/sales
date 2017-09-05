@@ -20,7 +20,7 @@
                         <label for="inputClient" class="col-sm-2 control-label">Клиент</label>
                         <div class="col-sm-10">
                             <input id="inputClient" class="form-control" placeholder="Клиент"
-                                   v-model="searchFormClient">
+                                   v-model="searchFormClient" autocomplete="off">
                             <div v-if="(searchFormClient && editCustomItem.client_name !== searchFormClient)" class="client_list">
                                 <div class="col-xs-12 list-group">
                                     <a href="#" @click="selectFormClient(cl)" class="list-group-item"
