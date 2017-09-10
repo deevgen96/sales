@@ -31,7 +31,7 @@
         <tbody>
         <tr v-for="(itm, index) in custom_items"
             v-if="(((client.client_id) && itm.client_id == client.client_id) || (!client.client_id))
-                && ((!searchArticle) || itm.article == searchArticle)"
+                && ((!searchArticle) || itm.article.indexOf(searchArticle) > -1)"
             :class="{ 'danger': itm.decline_before_send == 1 || itm.decline_after_sale == 1}">
             <td>${itm.log_id}</td>
             <td><a class="pointer" @click="setSearchClient(itm)">${itm.client_name}</a></td>
