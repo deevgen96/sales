@@ -25,12 +25,17 @@
                            v-model="searchClient" autocomplete="off">
                     <div v-if="(searchClient && !client.client_name)" class="client_list">
                         <div class="col-xs-12 list-group">
-                            <a href="#" @click="selectClient(fcl)" class="list-group-item"
+                            <a href="#" @click="selectClient(fcl)"  class="list-group-item"
                                v-for="fcl in filteredClients">${ fcl.client_name }</a>
                         </div>
                     </div>
                 </div>
-                <div class="col-xs-6 text-right">
+                <div class="form-group col-xs-2">
+                    <label for="choise_article">Артикул:</label>
+                    <input id="choise_article" class="form-control" placeholder="Артикул" @input="clearSearchClient()"
+                           v-model="searchArticle" autocomplete="off">
+                </div>
+                <div class="col-xs-4 text-right">
                     <button @click="showTotal = !showTotal" title="Показать/скрыть итоги"><i class="fa"
                                                                :class="{'fa-eye-slash':showTotal == 1, 'fa-eye':showTotal == 0}"
                                                                aria-hidden="true"></i></button>

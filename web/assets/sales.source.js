@@ -39,6 +39,7 @@ window.onload = function () {
                 'field': ''
             },
             showTotal: 1,
+            searchArticle: ''
         },
         watch: {
             source: function () {

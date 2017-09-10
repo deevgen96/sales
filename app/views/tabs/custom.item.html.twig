@@ -5,7 +5,7 @@
         позицию
     </button>
     <button class="btn btn-default pull-right" type="button" @click="goToDown()"><i class="fa fa-arrow-down"
-                                                                                   aria-hidden="true"></i>&nbsp;Вниз
+                                                                                    aria-hidden="true"></i>&nbsp;Вниз
     </button>
     <table class="table">
         <thead>
@@ -30,7 +30,8 @@
         </thead>
         <tbody>
         <tr v-for="(itm, index) in custom_items"
-            v-if="((client.client_id) && itm.client_id == client.client_id) || (!client.client_id)"
+            v-if="(((client.client_id) && itm.client_id == client.client_id) || (!client.client_id))
+                && ((!searchArticle) || itm.article == searchArticle)"
             :class="{ 'danger': itm.decline_before_send == 1 || itm.decline_after_sale == 1}">
             <td>${itm.log_id}</td>
             <td>${itm.client_name}</td>
@@ -53,7 +54,7 @@
             </td>
             <td>
                 <button class="btn btn-default btn-sm" type="button" data-toggle="modal"
-                        data-target="#editCustomItem" @click="setCustomItem(index)" ><i
+                        data-target="#editCustomItem" @click="setCustomItem(index)"><i
                             class="fa fa-pencil" aria-hidden="true"></i></button>
             </td>
             <td>
@@ -95,6 +96,6 @@
         позицию
     </button>
     <button class="btn btn-default pull-right" type="button" @click="goToUp()"><i class="fa fa-arrow-up"
-                                                                           aria-hidden="true"></i>&nbsp;Вверх
+                                                                                  aria-hidden="true"></i>&nbsp;Вверх
     </button>
 </div>
