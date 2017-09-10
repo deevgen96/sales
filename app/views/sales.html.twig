@@ -21,24 +21,36 @@
                 </div>
                 <div class="form-group col-xs-2">
                     <label for="choise_client">Клиент:</label>
-                    <input id="choise_client" class="form-control" placeholder="Клиент" @input="clearSearchClient()"
-                           v-model="searchClient" autocomplete="off">
+                    <div class="input-group">
+                        <input id="choise_client" class="form-control" placeholder="Клиент" @input="clearSearchClient()"
+                               v-model="searchClient" autocomplete="off">
+                        <span class="input-group-addon pointer" @click="clearSearchClient(); searchClient = '';">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                        </span>
+                    </div>
                     <div v-if="(searchClient && !client.client_name)" class="client_list">
                         <div class="col-xs-12 list-group">
-                            <a href="#" @click="selectClient(fcl)"  class="list-group-item"
+                            <a href="#" @click="selectClient(fcl)" class="list-group-item"
                                v-for="fcl in filteredClients">${ fcl.client_name }</a>
                         </div>
                     </div>
                 </div>
                 <div class="form-group col-xs-2">
                     <label for="choise_article">Артикул:</label>
-                    <input id="choise_article" class="form-control" placeholder="Артикул" @input="clearSearchClient()"
-                           v-model="searchArticle" autocomplete="off">
+                    <div class="input-group">
+                        <input id="choise_article" class="form-control" placeholder="Артикул"
+                               @input="clearSearchClient()"
+                               v-model="searchArticle" autocomplete="off">
+                        <span class="input-group-addon pointer" @click="searchArticle = ''">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                        </span>
+                    </div>
                 </div>
                 <div class="col-xs-4 text-right">
                     <button @click="showTotal = !showTotal" title="Показать/скрыть итоги"><i class="fa"
-                                                               :class="{'fa-eye-slash':showTotal == 1, 'fa-eye':showTotal == 0}"
-                                                               aria-hidden="true"></i></button>
+                                                                                             :class="{'fa-eye-slash':showTotal == 1, 'fa-eye':showTotal == 0}"
+                                                                                             aria-hidden="true"></i>
+                    </button>
                     <h4 v-if="showTotal">Заказ: ${formatPrice(total.source_total)}</h4>
                     <h4 v-if="showTotal">Продажа: ${formatPrice(total.sale_total)}</h4>
                 </div>

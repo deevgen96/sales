@@ -386,6 +386,11 @@ window.onload = function () {
                 this.setCustomItemOnce();
                 this.setCustomItemDefault();
             },
+            setSearchClient: function(item){
+                this.client.client_id = item.client_id;
+                this.client.client_name = item.client_name;
+                this.searchClient = item.client_name;
+            },
             selectClient: function (client) {
                 this.client = client;
                 this.searchClient = client.client_name;
