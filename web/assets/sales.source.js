@@ -291,6 +291,20 @@ window.onload = function () {
                     s.getCustomItem($custom_id);
                 });
             },
+            declineCustomItem: function (item) {
+                s = this;
+                s.editCustomItem = item;
+                $custom_id = s.editCustomItem.custom_id;
+                s.editCustomItem.decline_after_sale = !parseInt(s.editCustomItem.decline_after_sale);
+                s.editCustomItem.decline_after_sale = (s.editCustomItem.decline_after_sale == false) ? 0 : 1;
+
+                this.$http.post(s.api_url + '/api/v1/rest/source/custom/' + $custom_id + '/item/', s.editCustomItem).then(function (response) {
+                    s.custom_items = response.data;
+                }).catch(function () {
+                    console.log('Ошибка запроса данных');
+                    s.getCustomItem($custom_id);
+                });
+            },
             setSource: function () {
                 s = this;
                 this.$http.post(s.api_url + '/api/v1/rest/source/', s.editSource).then(function (response) {

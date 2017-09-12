@@ -10,3 +10,26 @@
     position: absolute;
     z-index: 1000;
 }
+
+.make_img {
+    max-width: 50px;
+}
+
+a:link {
+    color: #00c
+}
+
+/* unvisited links */
+a:visited {
+    color: #0c0
+}
+
+/* visited links   */
+a:hover {
+    color: #c00
+}
+
+/* user hovers     */
+a:active {
+    color: #ccc
+}
