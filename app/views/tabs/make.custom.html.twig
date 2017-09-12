@@ -21,7 +21,7 @@
             && (((client.client_id) && itm.client_id == client.client_id) || (!client.client_id))">
             <td><a class="pointer" @click="setSearchClient(itm)">${itm.client_name}</a></td>
             <td>${itm.item_name}</td>
-            <td><a :href="itm.item_link" target="_blank">${itm.article}</a><br />
+            <td><a :href="itm.item_link" target="_blank">${itm.article}</a><br/>
                 <a class="pointer" @click="searchArticle = itm.article">${itm.article}</a>
             </td>
             <td>${itm.item_size}</td>
@@ -30,21 +30,22 @@
             <td>${formatPrice(itm.source_price)}</td>
             <td>${formatPrice(itm.sale_price)}</td>
             <td>${formatPrice(itm.total)}</td>
-            <td><input type="checkbox" :checked="itm.decline_after_sale == 1" :value="itm.decline_after_sale" @click="declineCustomItem(itm)">
+            <td><input type="checkbox" :checked="itm.decline_after_sale == 1" :value="itm.decline_after_sale"
+                       @click="declineCustomItem(itm)">
             </td>
         </tr>
         </tbody>
         <tfoot>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td><strong>ИТОГО:</strong></td>
-            <td><strong>${formatPrice(total.source_total)}</strong></td>
-            <td></td>
-            <td><strong>${formatPrice(total.sale_total)}</strong></td>
-            <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td><strong>ИТОГО:</strong></td>
+        <td><strong>${formatPrice(total.source_total)}</strong></td>
+        <td></td>
+        <td><strong>${formatPrice(total.sale_total)}</strong></td>
+        <td></td>
         </tfoot>
     </table>
 </div>

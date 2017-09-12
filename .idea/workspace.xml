@@ -5,11 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f0b8b703-1441-45f7-9230-8ed8c59ca59a" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/tabs/custom.item.html.twig" afterPath="$PROJECT_DIR$/app/views/tabs/custom.item.html.twig" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/tabs/make.custom.html.twig" afterPath="$PROJECT_DIR$/app/views/tabs/make.custom.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/sales.css" afterPath="$PROJECT_DIR$/css/sales.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/assets/sales.source.js" afterPath="$PROJECT_DIR$/web/assets/sales.source.js" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -37,8 +33,8 @@
       <file leaf-file-name="make.custom.html.twig" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/views/tabs/make.custom.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="15" column="16" lean-forward="true" selection-start-line="15" selection-start-column="16" selection-end-line="15" selection-end-column="16" />
+            <state relative-caret-position="204">
+              <caret line="12" column="21" lean-forward="false" selection-start-line="12" selection-start-column="21" selection-end-line="12" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -552,12 +548,12 @@
       <workItem from="1505034824847" duration="5734000" />
       <workItem from="1505042465661" duration="3039000" />
       <workItem from="1505140696204" duration="4507000" />
-      <workItem from="1505227211323" duration="650000" />
+      <workItem from="1505227211323" duration="842000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="150270000" />
+    <option name="totallyTimeSpent" value="150462000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1912" y="-8" width="1296" height="1040" extended-state="6" />
@@ -981,8 +977,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/views/tabs/make.custom.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="16" lean-forward="true" selection-start-line="15" selection-start-column="16" selection-end-line="15" selection-end-column="16" />
+        <state relative-caret-position="204">
+          <caret line="12" column="21" lean-forward="false" selection-start-line="12" selection-start-column="21" selection-end-line="12" selection-end-column="21" />
           <folding />
         </state>
       </provider>
