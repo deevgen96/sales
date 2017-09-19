@@ -51,8 +51,22 @@
                                                                                              :class="{'fa-eye-slash':showTotal == 1, 'fa-eye':showTotal == 0}"
                                                                                              aria-hidden="true"></i>
                     </button>
-                    <h4 v-if="showTotal">Заказ: ${formatPrice(total.source_total)}</h4>
-                    <h4 v-if="showTotal">Продажа: ${formatPrice(total.sale_total)}</h4>
+                    <h4 v-if="showTotal">
+                        <div class="col-xs-3 col-xs-offset-6 pull-left">Заказ:</div>
+                        <div class="col-xs-3 pull-right">${formatPrice(total.source_total)}</div>
+                    </h4>
+                    <h4 v-if="showTotal">
+                        <div class="col-xs-3 col-xs-offset-6 pull-left">Продажа:</div>
+                        <div class="col-xs-3 pull-right">${formatPrice(total.sale_total)}</div>
+                    </h4>
+                    <h4 v-if="showTotal">
+                        <div class="col-xs-3 col-xs-offset-6 pull-left">Оплаты:</div>
+                        <div class="col-xs-3 pull-right">${formatPrice(total.payment_total)}</div>
+                    </h4>
+                    <h4 v-if="showTotal">
+                        <div class="col-xs-3 col-xs-offset-6 pull-left">Остаток:</div>
+                        <div class="col-xs-3 pull-right">${formatPrice(total.sale_total - total.payment_total)}</div>
+                    </h4>
                 </div>
             </div>
         </div>

@@ -4,7 +4,22 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Изменение платежа по: ${custom.custom_name} , Клиент: ${editCustomItem.client_name}</h4>
+                <h4 class="modal-title" id="myModalLabel">${searchFormClient}</h4>
+                <h5>
+                    <div class="col-xs-4">
+                        Сумма заказа: ${formatPrice(customItemSum(editPayment.client_id))}
+                    </div>
+                    <div class="col-xs-4 col-xs-offset-4">
+                        Оплачено: ${formatPrice(customItemPayment(editPayment.client_id))}
+                    </div>
+                </h5>
+                <h5>
+                    <div class="col-xs-4 col-xs-offset-8">Остаток:
+                        ${formatPrice(customItemSum(editPayment.client_id) -
+                        customItemPayment(editPayment.client_id))}
+                    </div>
+                </h5>
+
             </div>
             <div class="modal-body">
                 <form class="form-horizontal">
@@ -20,7 +35,8 @@
                         <div class="col-sm-10">
                             <input id="inputClient" class="form-control" placeholder="Клиент"
                                    v-model="searchFormClient" autocomplete="off">
-                            <div v-if="(searchFormClient && editPayment.client_name !== searchFormClient)" class="client_list">
+                            <div v-if="(searchFormClient && editPayment.client_name !== searchFormClient)"
+                                 class="client_list">
                                 <div class="col-xs-12 list-group">
                                     <a href="#" @click="selectPaymentFormClient(cl)" class="list-group-item"
                                        v-for="cl in filteredFormClients">${ cl.client_name }</a>

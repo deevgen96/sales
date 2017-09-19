@@ -39,7 +39,7 @@ window.onload = function () {
                 'field': ''
             },
             showTotal: 1,
-            searchArticle: ''
+            searchArticle: '',
         },
         watch: {
             source: function () {
@@ -184,7 +184,7 @@ window.onload = function () {
                 var s = this,
                     result = [];
                 if (s.custom_items.length > 0) {
-                    return s.custom_items.reduce(function (res, value) {
+                    result = s.custom_items.reduce(function (res, value) {
                         if ((value.decline_before_send == 0) && (value.decline_after_sale == 0)) {
                             if (!res['source_total']) {
                                 res['source_total'] = 0.00;
@@ -195,10 +195,31 @@ window.onload = function () {
                         }
                         return res;
                     }, {});
+
+                    if (s.payments.length > 0) {
+
+                        payment_total = s.payments.reduce(function (res, value) {
+
+                            if (!res['payment_total']) {
+                                res['payment_total'] = 0.00;
+                            }
+                            res['payment_total'] += parseFloat(value.payment_sum);
+
+                            console.log();
+                            return res;
+                        }, {});
+                        result['payment_total'] = payment_total.payment_total;
+                    }
+                    else {
+                        result['payment_total'] = 0;
+                    }
+                }
+                else {
+                    result['source_total'] = 0;
+                    result['sale_total'] = 0;
+                    result['payment_total'] = 0;
                 }
 
-                result['source_total'] = 0;
-                result['sale_total'] = 0;
                 return result;
             },
         },
@@ -400,7 +421,7 @@ window.onload = function () {
                 this.setCustomItemOnce();
                 this.setCustomItemDefault();
             },
-            setSearchClient: function(item){
+            setSearchClient: function (item) {
                 this.client.client_id = item.client_id;
                 this.client.client_name = item.client_name;
                 this.searchClient = item.client_name;
@@ -541,11 +562,53 @@ window.onload = function () {
                 return true;
             },
             //customs
-            goToUp: function(){
+            goToUp: function () {
                 window.scrollTo(0, 0);
             },
-            goToDown: function(){
+            goToDown: function () {
                 window.scrollTo(0, document.body.scrollHeight);
+            },
+            customItemPayment: function (client_id) {
+                let payment = [];
+                s.payments.reduce(function (res, value) {
+                    if (value.client_id) {
+                        if (!res[value.client_id]) {
+                            res[value.client_id] = {
+                                client_id: value.client_id,
+                                payment_sum: 0.00
+                            };
+                            payment[value.client_id] = (res[value.client_id])
+                        }
+                        res[value.client_id].payment_sum += parseFloat(value.payment_sum);
+                    }
+                    return res;
+                }, {});
+                if (payment[client_id])
+                    return payment[client_id].payment_sum;
+                else
+                    return 0;
+            },
+
+            customItemSum: function (client_id) {
+                let custom = [];
+                s.custom_items.reduce(function (res, value) {
+                    if (value.client_id) {
+                        if (!res[value.client_id]) {
+                            res[value.client_id] = {
+                                client_id: value.client_id,
+                                custom_sum: 0.00
+                            };
+                            custom[value.client_id] = (res[value.client_id])
+                        }
+                        res[value.client_id].custom_sum += parseFloat(value.sale_price * value.item_count);
+                    }
+                    return res;
+                }, {});
+
+                if (custom[client_id])
+                    return custom[client_id].custom_sum;
+                else
+                    return 0;
             },
         },
         created: function () {
