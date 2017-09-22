@@ -38,7 +38,7 @@
             <td>${formatPrice(itm.sale_price)}</td>
             <td>${formatPrice(itm.total)}</td>
             <td>
-                <div class="thumbnail make_img" v-if="showImage && itm.item_photo">
+                <div class="thumbnail thumbnail_size" v-if="showImage && itm.item_photo">
                     <image :src="getImageUrl(itm.item_photo)"/>
                 </div>
             </td>
