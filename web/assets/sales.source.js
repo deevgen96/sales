@@ -40,6 +40,7 @@ window.onload = function () {
             },
             showTotal: 1,
             searchArticle: '',
+            showImage: 1,
         },
         watch: {
             source: function () {
@@ -189,9 +190,11 @@ window.onload = function () {
                             if (!res['source_total']) {
                                 res['source_total'] = 0.00;
                                 res['sale_total'] = 0.00;
+                                res['item_count'] = 0;
                             }
                             res['source_total'] += parseFloat(value.source_price * value.item_count);
                             res['sale_total'] += parseFloat(value.total);
+                            res['item_count'] += parseInt(value.item_count);
                         }
                         return res;
                     }, {});
@@ -218,6 +221,7 @@ window.onload = function () {
                     result['source_total'] = 0;
                     result['sale_total'] = 0;
                     result['payment_total'] = 0;
+                    result['item_count'] = 0;
                 }
 
                 return result;
@@ -607,6 +611,28 @@ window.onload = function () {
 
                 if (custom[client_id])
                     return custom[client_id].custom_sum;
+                else
+                    return 0;
+            },
+
+            customItemCount: function (client_id) {
+                let custom = [];
+                s.custom_items.reduce(function (res, value) {
+                    if (value.client_id) {
+                        if (!res[value.client_id]) {
+                            res[value.client_id] = {
+                                client_id: value.client_id,
+                                custom_count: 0
+                            };
+                            custom[value.client_id] = (res[value.client_id])
+                        }
+                        res[value.client_id].custom_count += parseInt(value.item_count);
+                    }
+                    return res;
+                }, {});
+
+                if (custom[client_id])
+                    return custom[client_id].custom_count;
                 else
                     return 0;
             },

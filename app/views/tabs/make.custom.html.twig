@@ -1,4 +1,5 @@
 <div role="tabpanel" class="tab-pane active" id="make_custom">
+
     <table class="table">
         <thead>
         <td class="pointer" @click="invertSortName()">Клиент&nbsp;<i class="fa" :class="sortClassClientName"
@@ -12,6 +13,12 @@
         <td>Цена сайта</td>
         <td>Цена</td>
         <td>Стоимость</td>
+        <td>Фото
+            <button @click="showImage = !showImage" title="Показать/скрыть итоги"><i class="fa pull-right"
+                                                                                     :class="{'fa-eye-slash':showImage == 1, 'fa-eye':showImage == 0}"
+                                                                                     aria-hidden="true"></i>
+            </button>
+        </td>
         <td>Нет на складе</td>
         </thead>
         <tbody>
@@ -30,6 +37,11 @@
             <td>${formatPrice(itm.source_price)}</td>
             <td>${formatPrice(itm.sale_price)}</td>
             <td>${formatPrice(itm.total)}</td>
+            <td>
+                <div class="thumbnail make_img" v-if="showImage && itm.item_photo">
+                    <image :src="getImageUrl(itm.item_photo)"/>
+                </div>
+            </td>
             <td><input type="checkbox" :checked="itm.decline_after_sale == 1" :value="itm.decline_after_sale"
                        @click="declineCustomItem(itm)">
             </td>
@@ -45,6 +57,7 @@
         <td><strong>${formatPrice(total.source_total)}</strong></td>
         <td></td>
         <td><strong>${formatPrice(total.sale_total)}</strong></td>
+        <td></td>
         <td></td>
         </tfoot>
     </table>
