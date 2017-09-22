@@ -28,8 +28,10 @@
             && (((client.client_id) && itm.client_id == client.client_id) || (!client.client_id))">
             <td><a class="pointer" @click="setSearchClient(itm)">${itm.client_name}</a></td>
             <td>${itm.item_name}</td>
-            <td><a :href="itm.item_link" target="_blank">${itm.article}</a><br/>
-                <a class="pointer" @click="searchArticle = itm.article">${itm.article}</a>
+            <td>
+                <a v-if="!showImage" :href="itm.item_link" target="_blank">${itm.article}</a><br/>
+                <a v-if="!showImage" class="pointer" @click="searchArticle = itm.article">${itm.article}</a>
+                <span v-if="showImage">${itm.article}</span>
             </td>
             <td>${itm.item_size}</td>
             <td>${itm.item_count}</td>
@@ -38,7 +40,7 @@
             <td>${formatPrice(itm.sale_price)}</td>
             <td>${formatPrice(itm.total)}</td>
             <td>
-                <div class="thumbnail thumbnail_size" v-if="showImage && itm.item_photo">
+                <div class="thumbnail make_img" v-if="showImage && itm.item_photo">
                     <image :src="getImageUrl(itm.item_photo)"/>
                 </div>
             </td>
