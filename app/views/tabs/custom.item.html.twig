@@ -16,6 +16,7 @@
         <td class="pointer" @click="invertSortArticle()">Артикул&nbsp;<i class="fa" :class="sortClassArticle"
                                                                          aria-hidden="true"></i></td>
         <td>Размер</td>
+        <td>Примачание</td>
         <td>Количество</td>
         <td>На кого</td>
         <td>Начальная цена</td>
@@ -41,6 +42,7 @@
                 <a class="pointer" @click="searchArticle = itm.article">${itm.article}</a>
             </td>
             <td>${itm.item_size}</td>
+            <td>${itm.comment}</td>
             <td>${itm.item_count}</td>
             <td>${itm.sex}</td>
             <td>${formatPrice(itm.source_price)}</td>

@@ -25,6 +25,7 @@ window.onload = function () {
             copyCustomItem: {},
             editSource: {},
             sex: [
+                {'name': '-'},
                 {'name': 'Женщина'},
                 {'name': 'Мужчина'},
                 {'name': 'Девочка'},
@@ -184,18 +185,17 @@ window.onload = function () {
             total: function () {
                 var s = this,
                     result = [];
-                if (s.custom_items.length > 0) {
-                    result = s.custom_items.reduce(function (res, value) {
-                        if ((value.decline_before_send == 0) && (value.decline_after_sale == 0)) {
-                            if (!res['source_total']) {
-                                res['source_total'] = 0.00;
-                                res['sale_total'] = 0.00;
-                                res['item_count'] = 0;
-                            }
-                            res['source_total'] += parseFloat(value.source_price * value.item_count);
-                            res['sale_total'] += parseFloat(value.total);
-                            res['item_count'] += parseInt(value.item_count);
+                if (s.make_item_people.length > 0) {
+                    result = s.make_item_people.reduce(function (res, value) {
+                        if (!res['source_total']) {
+                            res['source_total'] = 0.00;
+                            res['sale_total'] = 0.00;
+                            res['item_count'] = 0;
                         }
+                        res['source_total'] += parseFloat(value.source_price * value.item_count);
+                        res['sale_total'] += parseFloat(value.total);
+                        res['item_count'] += parseInt(value.item_count);
+
                         return res;
                     }, {});
 
@@ -208,7 +208,6 @@ window.onload = function () {
                             }
                             res['payment_total'] += parseFloat(value.payment_sum);
 
-                            console.log();
                             return res;
                         }, {});
                         result['payment_total'] = payment_total.payment_total;
@@ -222,6 +221,23 @@ window.onload = function () {
                     result['sale_total'] = 0;
                     result['payment_total'] = 0;
                     result['item_count'] = 0;
+                }
+
+                return result;
+            },
+            make_item_people: function () {
+                var s = this,
+                    result = [];
+                if (s.custom_items.length > 0) {
+                    s.custom_items.reduce(function (res, value) {
+                        if ((value.decline_before_send == 0) &&
+                            (value.decline_after_sale == 0) &&
+                            ((!s.searchArticle) || value.article.indexOf(s.searchArticle) > -1) &&
+                            (((s.client.client_id) && value.client_id == s.client.client_id) || (!s.client.client_id))
+                        ) {
+                            result.push(value);
+                        }
+                    }, {});
                 }
 
                 return result;
@@ -308,7 +324,9 @@ window.onload = function () {
 
                 s.editCustomItem.decline_before_send = (s.editCustomItem.decline_before_send == false) ? 0 : 1;
                 s.editCustomItem.decline_after_sale = (s.editCustomItem.decline_after_sale == false) ? 0 : 1;
-
+                s.editCustomItem.comment = (s.editCustomItem.comment ? s.editCustomItem.comment : "");
+                s.editCustomItem.sex = (s.editCustomItem.sex ? s.editCustomItem.sex : "-");
+                s.editCustomItem.item_size = (s.editCustomItem.item_size ? s.editCustomItem.item_size : 0);
                 this.$http.post(s.api_url + '/api/v1/rest/source/custom/' + $custom_id + '/item/', s.editCustomItem).then(function (response) {
                     s.custom_items = response.data;
                 }).catch(function () {
@@ -322,6 +340,9 @@ window.onload = function () {
                 $custom_id = s.editCustomItem.custom_id;
                 s.editCustomItem.decline_after_sale = !parseInt(s.editCustomItem.decline_after_sale);
                 s.editCustomItem.decline_after_sale = (s.editCustomItem.decline_after_sale == false) ? 0 : 1;
+                s.editCustomItem.comment = (s.editCustomItem.comment ? s.editCustomItem.comment : "");
+                s.editCustomItem.sex = (s.editCustomItem.sex ? s.editCustomItem.sex : "-");
+                s.editCustomItem.item_size = (s.editCustomItem.item_size ? s.editCustomItem.item_size : 0);
 
                 this.$http.post(s.api_url + '/api/v1/rest/source/custom/' + $custom_id + '/item/', s.editCustomItem).then(function (response) {
                     s.custom_items = response.data;
@@ -473,18 +494,20 @@ window.onload = function () {
             //set new items
             //custom_item
             setCustomItemDefault: function () {
+                this.editCustomItem = {};
                 this.editCustomItem.log_id = 0;
                 this.editCustomItem.custom_id = this.custom.custom_id;
                 this.editCustomItem.custom_name = this.custom.custom_name;
                 this.editCustomItem.item_id = 0;
                 this.editCustomItem.article = '';
                 this.editCustomItem.item_link = '';
-                this.editCustomItem.item_size = '';
+                this.editCustomItem.item_size = 0;
                 this.editCustomItem.item_count = 1;
                 this.editCustomItem.item_photo = '';
-                this.editCustomItem.sex = '';
+                this.editCustomItem.sex = '-';
                 this.editCustomItem.source_price = null;
                 this.editCustomItem.sale_price = null;
+                this.editCustomItem.comment = '';
                 this.editCustomItem.decline_before_send = 0;
                 this.editCustomItem.decline_after_sale = 0;
             },
@@ -596,15 +619,18 @@ window.onload = function () {
             customItemSum: function (client_id) {
                 let custom = [];
                 s.custom_items.reduce(function (res, value) {
-                    if (value.client_id) {
-                        if (!res[value.client_id]) {
-                            res[value.client_id] = {
-                                client_id: value.client_id,
-                                custom_sum: 0.00
-                            };
-                            custom[value.client_id] = (res[value.client_id])
+                    if ((value.decline_before_send == 0) && (value.decline_after_sale == 0)) {
+                        if (value.client_id) {
+
+                            if (!res[value.client_id]) {
+                                res[value.client_id] = {
+                                    client_id: value.client_id,
+                                    custom_sum: 0.00
+                                };
+                                custom[value.client_id] = (res[value.client_id])
+                            }
+                            res[value.client_id].custom_sum += parseFloat(value.sale_price * value.item_count);
                         }
-                        res[value.client_id].custom_sum += parseFloat(value.sale_price * value.item_count);
                     }
                     return res;
                 }, {});
