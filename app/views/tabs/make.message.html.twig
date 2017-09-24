@@ -9,8 +9,11 @@
         <tr v-for="(mp, index) in make_payment">
             <td>${mp.client_name}</td>
             <td><a :href="mp.profile_link" target="_blank">${mp.profile_link}</a></td>
-            <td><textarea class="form-control" rows="4" readonly>${mp.client_greeting} ${mp.client_honor}.
-По ${custom.custom_name} (${source.source_name}) осталось оплатить ${formatPrice(mp.custom_sum - mp.payment_sum)} руб.</textarea></td>
+            <td><textarea class="form-control make_message" rows="4" readonly>${mp.client_greeting} ${mp.client_honor}.
+Забирать заказ по ${source.source_name} ориентировочно ${getDateToStr(custom.issue_date)} (Точную дату напишу в статусе).
+Адрес: г.Реж,ул.Калинина, д.36, кв.55,  тел. 8-963-04-88-924.
+Осталось оплатить ${formatPrice(mp.custom_sum - mp.payment_sum)} руб., Карта сбербанка 4276 8160 3225 6719 (Деева Александра Ильинична).
+                </textarea></td>
         </tr>
         </tbody>
     </table>

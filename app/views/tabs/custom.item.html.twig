@@ -75,24 +75,6 @@
         </tr>
         </tbody>
         <tfoot>
-        <tr v-show="client.client_id || searchArticle">
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td><strong>ИТОГО ПО ФИЛЬТРУ:</strong></td>
-            <td>${customItemCount(client.client_id, searchArticle)}</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td><strong>${formatPrice(customItemSum(client.client_id, searchArticle))}</strong></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
         <tr v-show="!client.client_id && !searchArticle">
             <td></td>
             <td></td>

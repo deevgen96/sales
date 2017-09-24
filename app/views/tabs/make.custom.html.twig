@@ -1,26 +1,25 @@
 <div role="tabpanel" class="tab-pane active" id="make_custom">
-
     <table class="table">
         <thead>
-            <td class="pointer" @click="invertSortName()">Клиент&nbsp;<i class="fa" :class="sortClassClientName"
+        <td class="pointer" @click="invertSortName()">Клиент&nbsp;<i class="fa" :class="sortClassClientName"
+                                                                     aria-hidden="true"></i></td>
+        <td>Название товара</td>
+        <td class="pointer" @click="invertSortArticle()">Артикул&nbsp;<i class="fa" :class="sortClassArticle"
                                                                          aria-hidden="true"></i></td>
-            <td>Название товара</td>
-            <td class="pointer" @click="invertSortArticle()">Артикул&nbsp;<i class="fa" :class="sortClassArticle"
-                                                                             aria-hidden="true"></i></td>
-            <td>Размер</td>
-            <td>Описание</td>
-            <td>Количество</td>
-            <td>На кого</td>
-            <td>Цена сайта</td>
-            <td>Цена</td>
-            <td>Стоимость</td>
-            <td>Фото
-                <button @click="showImage = !showImage" title="Показать/скрыть итоги"><i class="fa pull-right"
-                                                                                         :class="{'fa-eye-slash':showImage == 1, 'fa-eye':showImage == 0}"
-                                                                                         aria-hidden="true"></i>
-                </button>
-            </td>
-            <td>Нет на складе</td>
+        <td>Размер</td>
+        <td>Описание</td>
+        <td>Количество</td>
+        <td>На кого</td>
+        <td>Цена сайта</td>
+        <td>Цена</td>
+        <td>Стоимость</td>
+        <td>Фото
+            <button @click="showImage = !showImage" title="Показать/скрыть итоги"><i class="fa pull-right"
+                                                                                     :class="{'fa-eye-slash':showImage == 1, 'fa-eye':showImage == 0}"
+                                                                                     aria-hidden="true"></i>
+            </button>
+        </td>
+        <td>Нет на складе</td>
         </thead>
         <tbody>
         <tr v-for="(itm, index) in make_item_people">
@@ -53,8 +52,9 @@
         <td></td>
         <td></td>
         <td></td>
-        <td></td>
         <td><strong>ИТОГО:</strong></td>
+        <td><strong>${total.item_count}</strong></td>
+        <td></td>
         <td><strong>${formatPrice(total.source_total)}</strong></td>
         <td></td>
         <td><strong>${formatPrice(total.sale_total)}</strong></td>

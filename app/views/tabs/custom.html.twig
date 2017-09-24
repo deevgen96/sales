@@ -11,6 +11,9 @@
         <td>Название</td>
         <td>Дата отправки</td>
         <td>Дата прихода</td>
+        <td>Дата раздачи</td>
+        <td>Стоимость доставки</td>
+        <td>Комиссия банка</td>
         <td></td>
         </thead>
         <tbody>
@@ -20,6 +23,9 @@
             <td>${cst.custom_name}</td>
             <td>${getDateFormat(cst.send_date)}</td>
             <td>${getDateFormat(cst.delivery_date)}</td>
+            <td>${getDateFormat(cst.issue_date)}</td>
+            <td>${formatPrice(cst.delivery_sum)}</td>
+            <td>${formatPrice(cst.bank_commission)}</td>
             <td style="width:100px">
                 <button class="btn btn-default btn-sm" type="button" data-toggle="modal"
                         data-target="#editCustom" @click="editSourceCustom(index)"><i

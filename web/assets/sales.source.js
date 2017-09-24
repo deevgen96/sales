@@ -42,6 +42,7 @@ window.onload = function () {
             showTotal: 1,
             searchArticle: '',
             showImage: 1,
+            article_item: [],
         },
         watch: {
             source: function () {
@@ -283,6 +284,7 @@ window.onload = function () {
                 s = this;
                 this.$http.get(s.api_url + '/api/v1/rest/custom/' + custom_id + '/item').then(function (response) {
                     s.custom_items = response.data;
+                    s.article_item = response.data;
                 }).catch(function () {
                     console.log('Ошибка запроса данных');
                 });
@@ -329,6 +331,7 @@ window.onload = function () {
                 s.editCustomItem.item_size = (s.editCustomItem.item_size ? s.editCustomItem.item_size : 0);
                 this.$http.post(s.api_url + '/api/v1/rest/source/custom/' + $custom_id + '/item/', s.editCustomItem).then(function (response) {
                     s.custom_items = response.data;
+                    s.article_item = response.data;
                 }).catch(function () {
                     console.log('Ошибка запроса данных');
                     s.getCustomItem($custom_id);
@@ -346,6 +349,7 @@ window.onload = function () {
 
                 this.$http.post(s.api_url + '/api/v1/rest/source/custom/' + $custom_id + '/item/', s.editCustomItem).then(function (response) {
                     s.custom_items = response.data;
+                    s.article_item = response.data;
                 }).catch(function () {
                     console.log('Ошибка запроса данных');
                     s.getCustomItem($custom_id);
@@ -367,6 +371,9 @@ window.onload = function () {
                     s.editCustom.send_date = null;
                 if (s.editCustom.delivery_date == "")
                     s.editCustom.delivery_date = null;
+                if (s.editCustom.issue_date == "")
+                    s.editCustom.issue_date = null;
+
                 this.$http.post(s.api_url + '/api/v1/rest/source/' + $source_id + '/custom/post/', s.editCustom).then(function (response) {
                     s.source_customs = response.data;
                 }).catch(function () {
@@ -392,6 +399,7 @@ window.onload = function () {
                 $custom_id = $copyCustomItem.custom_id;
                 this.$http.post(s.api_url + '/api/v1/rest/source/custom/' + $custom_id + '/item/', $copyCustomItem).then(function (response) {
                     s.custom_items = response.data;
+                    s.article_item = response.data;
                 }).catch(function () {
                     console.log('Ошибка запроса данных');
                     s.getCustomItem($custom_id);
@@ -425,6 +433,7 @@ window.onload = function () {
                 custom_id = s.custom_items[index].custom_id;
                 this.$http.delete(s.api_url + '/api/v1/rest/source/custom/' + custom_id + '/item/' + log_id + '/delete/').then(function (response) {
                     s.custom_items = response.data;
+                    s.article_item = response.data;
                 }).catch(function () {
                     console.log('Ошибка запроса данных');
                     s.getCustomItem(custom_id);
@@ -662,6 +671,33 @@ window.onload = function () {
                 else
                     return 0;
             },
+            getDateToStr: function(dateVal){
+                var d=new Date(dateVal);
+                var month=new Array(12),
+                    week = new Array(7);
+                month[0]="января";
+                month[1]="февраля";
+                month[2]="марта";
+                month[3]="апреля";
+                month[4]="мая";
+                month[5]="июня";
+                month[6]="июля";
+                month[7]="августа";
+                month[8]="сентября";
+                month[9]="октября";
+                month[10]="ноября";
+                month[11]="декабря";
+
+                week[0] = 'в понедельник';
+                week[1] = 'во вторник';
+                week[2] = 'в среду';
+                week[3] = 'в четверг';
+                week[4] = 'в пятницу';
+                week[5] = 'в субботу';
+                week[6] = 'в воскресенье';
+
+                return week[d.getDay()] + ', ' + d.getDate() + ' ' + month[d.getMonth()];
+            }
         },
         created: function () {
             this.getSource();

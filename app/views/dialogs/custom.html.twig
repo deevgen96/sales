@@ -46,6 +46,30 @@
 
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label for="inputIssue" class="col-sm-2 control-label">Дата раздачи
+                        </label>
+                        <div class="col-sm-10">
+                            <input type="date" class="form-control" id="inputIssue"
+                                   placeholder="Дата раздачи"
+                                   v-model="editCustom.issue_date">
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputDelSum" class="col-sm-2 control-label">Стоимость доставки</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="inputDelSum"
+                                   placeholder="Стоимость доставки" v-model="editCustom.delivery_sum">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputSum" class="col-sm-2 control-label">Комиссия банка</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="inputSum"
+                                   placeholder="Комиссия банка" v-model="editCustom.bank_commission">
+                        </div>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">

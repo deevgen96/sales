@@ -13,7 +13,7 @@
 
 .make_img {
     width: 100px;
-    max-height: 150px;
+    max-height: 100px;
 }
 
 a:link {
@@ -33,4 +33,8 @@ a:hover {
 /* user hovers     */
 a:active {
     color: #ccc
+}
+
+.make_message {
+    width: 800px;
 }
