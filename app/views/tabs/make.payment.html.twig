@@ -10,7 +10,7 @@
         <tr v-for="(mp, index) in make_payment">
             <td>${mp.client_name}</td>
             <td>${formatPrice(mp.custom_sum)}</td>
-            <td>${formatPrice(mp.payment_sum)}</td>
+            <td><span v-if="mp.payment_sum">${formatPrice(mp.payment_sum)}</span></td>
             <td>${formatPrice(mp.custom_sum - mp.payment_sum)}</td>
         </tr>
         </tbody>
