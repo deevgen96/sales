@@ -19,10 +19,10 @@
                                                                                      aria-hidden="true"></i>
             </button>
         </td>
-        <td>Нет на складе</td>
+        <td class="hidden-print">Нет на складе</td>
         </thead>
         <tbody>
-        <tr v-for="(itm, index) in make_item_people">
+        <tr v-for="(itm, index) in make_item_people" :class="{'success':checkArticleItem(itm.article)}">
             <td><a class="pointer" @click="setSearchClient(itm)">${itm.client_name}</a></td>
             <td>${itm.item_name}</td>
             <td>
@@ -42,7 +42,7 @@
                     <image :src="getImageUrl(itm.item_photo)"/>
                 </div>
             </td>
-            <td><input type="checkbox" :checked="itm.decline_after_sale == 1" :value="itm.decline_after_sale"
+            <td class="hidden-print"><input type="checkbox" :checked="itm.decline_after_sale == 1" :value="itm.decline_after_sale"
                        @click="declineCustomItem(itm)">
             </td>
         </tr>
@@ -59,7 +59,7 @@
         <td></td>
         <td><strong>${formatPrice(total.sale_total)}</strong></td>
         <td></td>
-        <td></td>
+        <td class="hidden-print"></td>
         </tfoot>
     </table>
 </div>

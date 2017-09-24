@@ -5,7 +5,7 @@
 {% block title %}Совместные закупки{% endblock %}
 {% block app %}
     <div id="sls">
-        <div class="container-fluid well">
+        <div class="container-fluid well hidden-print">
             <div class="col-xs-12 col-md-12 col-lg-12 col-sm-12">
                 <div class="form-group col-xs-2">
                     <label for="source_site">Источник:</label>
@@ -44,6 +44,9 @@
                         <span class="input-group-addon pointer" @click="searchArticle = ''">
                             <i class="fa fa-times" aria-hidden="true"></i>
                         </span>
+                        <span class="input-group-addon pointer" :class="{'success':!checkArticleItem(searchArticle), 'danger':checkArticleItem(searchArticle)}" @click="setArticleItem(searchArticle)">
+                            <i class="fa" :class="{'fa-plus':!checkArticleItem(searchArticle), 'fa-minus':checkArticleItem(searchArticle)}" aria-hidden="true"></i>
+                        </span>
                     </div>
                 </div>
                 <div class="col-xs-4 text-right">
@@ -72,7 +75,7 @@
         </div>
         <div class="container-fluid">
             <div class="col-xs-12 col-md-12 col-lg-12 col-sm-12">
-                <ul class="nav nav-tabs" role="tablist">
+                <ul class="nav nav-tabs hidden-print" role="tablist">
                     <li role="presentation"><a href="#manage_custom" aria-controls="manage_custom" role="tab"
                                                data-toggle="tab">Формирование заказа</a></li>
                     <li role="presentation"><a href="#send_custom" aria-controls="send_custom" role="tab"

@@ -22,12 +22,12 @@ a:link {
 
 /* unvisited links */
 a:visited {
-    color: #0c0
+    color: #00c
 }
 
 /* visited links   */
 a:hover {
-    color: #c00
+    color: #00c
 }
 
 /* user hovers     */
