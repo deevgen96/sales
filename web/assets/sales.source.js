@@ -683,15 +683,15 @@ window.onload = function () {
                 month[10] = "ноября";
                 month[11] = "декабря";
 
-                week[0] = 'в понедельник';
-                week[1] = 'во вторник';
-                week[2] = 'в среду';
-                week[3] = 'в четверг';
-                week[4] = 'в пятницу';
-                week[5] = 'в субботу';
-                week[6] = 'в воскресенье';
+                week[0] = 'в воскресенье';
+                week[1] = 'в понедельник';
+                week[2] = 'во вторник';
+                week[3] = 'в среду';
+                week[4] = 'в четверг';
+                week[5] = 'в пятницу';
+                week[6] = 'в субботу';
 
-                return week[d.getDay()] + ', ' + d.getDate() + ' ' + month[d.getMonth()];
+                return week[d.getDay() - 1] + ', ' + d.getDate() + ' ' + month[d.getMonth()];
             },
             setArticleItem: function (article) {
                 var s = this;
