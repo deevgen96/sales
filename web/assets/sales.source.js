@@ -691,7 +691,7 @@ window.onload = function () {
                 week[5] = 'в пятницу';
                 week[6] = 'в субботу';
 
-                return week[d.getDay() - 1] + ', ' + d.getDate() + ' ' + month[d.getMonth()];
+                return week[d.getDay()] + ', ' + d.getDate() + ' ' + month[d.getMonth()];
             },
             setArticleItem: function (article) {
                 var s = this;
