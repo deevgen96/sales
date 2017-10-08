@@ -284,6 +284,13 @@ window.onload = function () {
                 s = this;
                 this.$http.get(s.api_url + '/api/v1/rest/custom/' + custom_id + '/item').then(function (response) {
                     s.custom_items = response.data;
+
+                    if (s.customItemOrder.field == 'article')
+                        s.custom_items = s.customItemOrderByArticle();
+
+                    if (s.customItemOrder.field == 'client_name')
+                        s.custom_items = s.customItemOrderByName();
+
                 }).catch(function () {
                     console.log('Ошибка запроса данных');
                 });
@@ -330,6 +337,13 @@ window.onload = function () {
                 s.editCustomItem.item_size = (s.editCustomItem.item_size ? s.editCustomItem.item_size : 0);
                 this.$http.post(s.api_url + '/api/v1/rest/source/custom/' + $custom_id + '/item/', s.editCustomItem).then(function (response) {
                     s.custom_items = response.data;
+
+                    if (s.customItemOrder.field == 'article')
+                        s.custom_items = s.customItemOrderByArticle();
+
+                    if (s.customItemOrder.field == 'client_name')
+                        s.custom_items = s.customItemOrderByName();
+
                 }).catch(function () {
                     console.log('Ошибка запроса данных');
                     s.getCustomItem($custom_id);
@@ -347,6 +361,13 @@ window.onload = function () {
 
                 this.$http.post(s.api_url + '/api/v1/rest/source/custom/' + $custom_id + '/item/', s.editCustomItem).then(function (response) {
                     s.custom_items = response.data;
+
+                    if (s.customItemOrder.field == 'article')
+                        s.custom_items = s.customItemOrderByArticle();
+
+                    if (s.customItemOrder.field == 'client_name')
+                        s.custom_items = s.customItemOrderByName();
+
                 }).catch(function () {
                     console.log('Ошибка запроса данных');
                     s.getCustomItem($custom_id);
@@ -396,6 +417,13 @@ window.onload = function () {
                 $custom_id = $copyCustomItem.custom_id;
                 this.$http.post(s.api_url + '/api/v1/rest/source/custom/' + $custom_id + '/item/', $copyCustomItem).then(function (response) {
                     s.custom_items = response.data;
+
+                    if (s.customItemOrder.field == 'article')
+                        s.custom_items = s.customItemOrderByArticle();
+
+                    if (s.customItemOrder.field == 'client_name')
+                        s.custom_items = s.customItemOrderByName();
+
                 }).catch(function () {
                     console.log('Ошибка запроса данных');
                     s.getCustomItem($custom_id);
@@ -429,6 +457,13 @@ window.onload = function () {
                 custom_id = s.custom_items[index].custom_id;
                 this.$http.delete(s.api_url + '/api/v1/rest/source/custom/' + custom_id + '/item/' + log_id + '/delete/').then(function (response) {
                     s.custom_items = response.data;
+
+                    if (s.customItemOrder.field == 'article')
+                        s.custom_items = s.customItemOrderByArticle();
+
+                    if (s.customItemOrder.field == 'client_name')
+                        s.custom_items = s.customItemOrderByName();
+
                 }).catch(function () {
                     console.log('Ошибка запроса данных');
                     s.getCustomItem(custom_id);
