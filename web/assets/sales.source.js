@@ -177,7 +177,7 @@ window.onload = function () {
                         custom[index].payment_sum = payment[index].payment_sum;
                     }
                     custom[index].client_message = custom[index].client_greeting + (custom[index].client_honor ? " " + custom[index].client_honor : '') + "." + String.fromCharCode(13) + String.fromCharCode(10) +
-                        "Забирать заказ по " + s.source.source_name + " ориентировочно " + s.getDateToStr(s.custom.issue_date) + " (Точную дату напишу в статусе)." + String.fromCharCode(13) + String.fromCharCode(10) +
+                        "Забирать заказ по сайту " + s.source.source_name + " ориентировочно " + s.getDateToStr(s.custom.issue_date) + " (Точную дату напишу в статусе)." + String.fromCharCode(13) + String.fromCharCode(10) +
                         "Адрес: г.Реж,ул.Калинина, д.36, кв.55,  тел. 8-963-04-88-924." + String.fromCharCode(13) + String.fromCharCode(10) +
                         "Осталось оплатить " + s.formatPrice(custom[index].custom_sum - custom[index].payment_sum) + " руб., Карта сбербанка 4276 8160 3225 6719 (Деева Александра Ильинична)." + String.fromCharCode(13) + String.fromCharCode(10) +
                         "После оплаты просьба отписаться в личку."
@@ -539,7 +539,6 @@ window.onload = function () {
             //set new items
             //custom_item
             setCustomItemDefault: function () {
-                this.editCustomItem = {};
                 this.editCustomItem.log_id = 0;
                 this.editCustomItem.custom_id = this.custom.custom_id;
                 this.editCustomItem.custom_name = this.custom.custom_name;
