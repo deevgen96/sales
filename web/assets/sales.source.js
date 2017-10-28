@@ -147,6 +147,7 @@ window.onload = function () {
                                 res[value.client_id] = client[value.client_id];
                                 res[value.client_id].custom_sum = 0.00;
                                 res[value.client_id].payment_sum = 0.00;
+                                res[value.client_id].client_message = '';
 
                                 custom[value.client_id] = (res[value.client_id]);
                             }
@@ -173,8 +174,13 @@ window.onload = function () {
 
                 $.each(custom, function (index, value) {
                     if (payment[index]) {
-                        custom[index].payment_sum = payment[index].payment_sum
+                        custom[index].payment_sum = payment[index].payment_sum;
                     }
+                    custom[index].client_message = custom[index].client_greeting + (custom[index].client_honor ? " " + custom[index].client_honor : '') + "." + String.fromCharCode(13) + String.fromCharCode(10) +
+                        "Забирать заказ по " + s.source.source_name + " ориентировочно " + s.getDateToStr(s.custom.issue_date) + " (Точную дату напишу в статусе)." + String.fromCharCode(13) + String.fromCharCode(10) +
+                        "Адрес: г.Реж,ул.Калинина, д.36, кв.55,  тел. 8-963-04-88-924." + String.fromCharCode(13) + String.fromCharCode(10) +
+                        "Осталось оплатить " + s.formatPrice(custom[index].custom_sum - custom[index].payment_sum) + " руб., Карта сбербанка 4276 8160 3225 6719 (Деева Александра Ильинична)." + String.fromCharCode(13) + String.fromCharCode(10) +
+                        "После оплаты просьба отписаться в личку."
                 });
 
                 result = $.map(custom, function (value, index) {
@@ -735,11 +741,20 @@ window.onload = function () {
                 else
                     s.article_item.push(article);
             },
-            checkArticleItem: function(article){
+            checkArticleItem: function (article) {
                 if (s.article_item.indexOf(article) > -1)
                     return true;
                 return false;
-            }
+            },
+            copyToClipboard: function(text) {
+                var copyFrom = document.createElement("textarea");
+                copyFrom.textContent = text;
+                var body = document.getElementsByTagName('body')[0];
+                body.appendChild(copyFrom);
+                copyFrom.select();
+                document.execCommand('copy');
+                body.removeChild(copyFrom);
+            },
         },
         created: function () {
             this.getSource();
