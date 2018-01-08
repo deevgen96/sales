@@ -615,7 +615,8 @@ window.onload = function () {
                 return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
             },
             getImageUrl: function (imgName) {
-                return this.image_url + this.source.image_folder + '/' + this.custom.custom_numb + '/' + imgName;
+                var d = new Date(this.custom.issue_date);
+                return this.image_url + this.source.image_folder + '/' + d.getFullYear() + '/' + this.custom.custom_numb + '/' + imgName;
             },
             getDateFormat: function (dateVal) {
                 if (dateVal) {
