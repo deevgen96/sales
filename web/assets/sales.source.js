@@ -33,7 +33,7 @@ window.onload = function () {
             ],
             editCustom: {'custom_name': ''},
             editPayment: {},
-            api_url: 'http://localhost/index.php',
+            api_url: '',
             image_url: '/web/images/',
             customItemOrder: {
                 'asc': 1,
@@ -178,7 +178,7 @@ window.onload = function () {
                     }
                     custom[index].client_message = custom[index].client_greeting + (custom[index].client_honor ? " " + custom[index].client_honor : '') + "." + String.fromCharCode(13) + String.fromCharCode(10) +
                         "Забирать заказ по сайту " + s.source.source_name + " ориентировочно " + s.getDateToStr(s.custom.issue_date) + " (Точную дату напишу в статусе)." + String.fromCharCode(13) + String.fromCharCode(10) +
-                        "Адрес: г.Реж,ул.Калинина, д.36, кв.55,  тел. 8-963-04-88-924." + String.fromCharCode(13) + String.fromCharCode(10) +
+                        "Адрес: г.Реж,ул.Черняховского, д.17а, кв.27,  тел. 8-963-04-88-924." + String.fromCharCode(13) + String.fromCharCode(10) +
                         "Осталось оплатить " + s.formatPrice(custom[index].custom_sum - custom[index].payment_sum) + " руб., Карта сбербанка 4276 8160 4478 6497 (Деева Александра Ильинична)." + String.fromCharCode(13) + String.fromCharCode(10) +
                         "После оплаты просьба отписаться в личку."
                 });
